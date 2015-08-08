@@ -14,7 +14,7 @@
 int main (int argc, char *argv[]) 
 {
 	// This should juuust fit in a long long integer
-	long long result;
+	long long result = 0;
 
 	// Starting point is approximate square root
 	// of first possible number (1020304050607080900)
