@@ -30,10 +30,6 @@ namespace
 
 int main(int argc, char *argv[]) 
 {
-    for (int i = 2; i < MAXIMUM_VALUE; i++)
-    {
-        
-        
-    }
+
     
 }
