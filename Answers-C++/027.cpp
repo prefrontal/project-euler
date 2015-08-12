@@ -20,11 +20,66 @@
 // Find the product of the coefficients, a and b, for the quadratic expression that produces 
 // the maximum number of primes for consecutive values of n, starting with n = 0.
 //
-// Answer:
+// Answer: -59231
 
 #include <iostream>
 
-int main(int argc, char *argv[]) 
+// This answer isn't terribly fast since it completes in five seconds
+// Some additional math would likely optimize the routine, but
+// the brute force approach works OK for now...
+
+bool IsPrime (const int testValue)
 {
+    // There are no primes less than 2
+    if (testValue < 2)
+        return false;
     
+    bool primeState = true;
+    
+    for (int i = 2; i < testValue; ++i)
+    {
+        if ((testValue % i) == 0)
+            primeState = false;
+    }
+    
+    return primeState;
+}
+
+int main (int argc, char *argv[]) 
+{
+    int maxA = 0;
+    int maxB = 0;
+    int maxPrimeCount = 0;
+    
+    for (int a = -1000; a <= 1000; a++)
+    {
+        for (int b = -1000; b <= 1000; b++)
+        {
+            bool hasConsecutivePrimes = true;
+            int primeCount = 0;
+            int n = 0;
+            
+            while (hasConsecutivePrimes)
+            {
+                int nextValue = n*n + a*n + b;
+
+                hasConsecutivePrimes = IsPrime (nextValue);
+                
+                if (hasConsecutivePrimes)
+                    primeCount++;
+                    
+                n += 1;
+            }
+            
+            if (primeCount > maxPrimeCount)
+            {
+                maxPrimeCount = primeCount;
+                maxA = a;
+                maxB = b;
+            }
+        }
+    }
+    
+    std::cout << "Greatest number of consecutive primes: " << maxPrimeCount << std::endl;
+    std::cout << "The product of the coefficients was: " << (maxA * maxB) << std::endl;
 }
