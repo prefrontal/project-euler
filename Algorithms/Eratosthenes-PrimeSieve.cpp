@@ -8,10 +8,12 @@
 #include <vector>
 
 /*
- * Sieve of Eratosthenes
+ * Sieve of Eratosthenes (integers)
  * Simple, ancient algorithm for finding all prime numbers up to any given limit.
  * It does so by iteratively marking as composite (i.e., not prime) the multiples
  * of each prime, starting with the multiples of 2.
+ *
+ * Provides a vector of integers that represent the prime numbers under the maximum value
 */
 void GetPrimes (const int maximum, std::vector<int> &primes)
 {
@@ -47,6 +49,54 @@ void GetPrimes (const int maximum, std::vector<int> &primes)
 			primes.push_back (k);
 	}
 }
+
+// --------------------------------------------------------------------------------
+
+/*
+ * Sieve of Eratosthenes (booleans)
+ * Simple, ancient algorithm for finding all prime numbers up to any given limit.
+ * It does so by iteratively marking as composite (i.e., not prime) the multiples
+ * of each prime, starting with the multiples of 2.
+ *
+ * Provides a vector of boolean values of length maximum, with each element
+ * representing whether that partuclar number is prime
+*/
+void GetPrimesBool (const int maximum, std::vector<bool> &primes)
+{
+    // Clear the input vector in case there is existing data
+    primes.clear();
+    
+    // There are no primes less than 2
+    if (maximum < 2)
+        return;
+    
+    // Construct and execute the Sieve
+    const int sqrtMaximum = static_cast<int>( sqrt(static_cast<double>(maximum)) );
+    std::vector<bool> primeTracker (maximum, true);
+    
+    // Block out the low numbers
+    primeTracker[0] = false;
+    primeTracker[1] = false;
+    
+    for (int i = 2; i < sqrtMaximum; ++i)
+    {
+        if (!primeTracker[i])
+            continue;
+        
+        for (int j = i + i; j < maximum; j += i)
+        {
+            if (j < 0)  // Guard against integer overflow
+                break;
+            
+            primeTracker[j] = false;
+        }
+    }
+    
+    // Just return the tracking array instead of the actual numbers
+    primes = primeTracker;
+}
+
+// --------------------------------------------------------------------------------
 
 /*
  * Brute-force check to determine if a number is prime
