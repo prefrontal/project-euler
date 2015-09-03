@@ -18,10 +18,51 @@
 // Find the sum of all 0 to 9 pandigital numbers with this property.
 //
 // Answer: 
+// 16695334890
 
+#include <algorithm>
 #include <iostream>
+#include <sstream>
 
-int main(int argc, char *argv[]) 
+bool IsTargetPandigital (const std::string number)
 {
-    
+	int divisors[] = {2, 3, 5, 7, 11, 13, 17};
+	
+	for (int i = 0; i <= 6; i++)
+	{
+		// We start counting at 0 in the loop,
+		// but the problem indices begin at one
+		std::stringstream a (number.substr(i+1, 3));
+		long long value;
+		a >> value;
+		
+		// Check the next divisor in the array
+		if ((value % divisors[i]) != 0)
+			return false;
+	}
+
+	return true;
+}
+
+int main (int argc, char *argv[]) 
+{
+	long long pandigitalSum = 0;
+    std::string number = "0123456789";
+
+	// We will permute the characters in the number string,
+	// checking if each permutation is a pandigital target
+	do
+	{
+		if (IsTargetPandigital(number))
+		{
+			std::stringstream a (number);
+			long long value;
+			a >> value;
+			pandigitalSum += value;
+		}
+		
+	}
+	while (std::next_permutation(number.begin(), number.end()));
+	
+	std::cout << "The sum of pandigital numbers is: " << pandigitalSum << std::endl;
 }
