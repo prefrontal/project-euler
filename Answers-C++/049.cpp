@@ -12,13 +12,20 @@
 // 
 // Answer:
 
+#include <algorithm>
 #include <cmath>
 #include <iostream>
+#include <sstream>
 #include <vector>
 
 namespace
 {
+    // We will be working with four-digit integers
+    const int MINIMUM_VALUE = 1000;
     const int MAXIMUM_VALUE = 9999;
+    
+    // This is the value we already know
+    const int GIVEN_VALUE = 1487;
 }
 
 /*
@@ -64,8 +71,78 @@ void GetPrimes (const int maximum, std::vector<int> &primes)
     }
 }
 
+/*
+ * Brute-force check to determine if a number is prime
+ * Used to validate the Sieve results.  Could also be
+ * used when the Sieve would use too much memory.
+*/
+bool IsPrime (const int testValue)
+{
+    // There are no primes less than 2
+    if (testValue < 2)
+        return false;
+    
+    bool primeState = true;
+    
+    for (int i = 2; i < testValue; ++i)
+    {
+        if ((testValue % i) == 0)
+            primeState = false;
+    }
+    
+    return primeState;
+}
+
+// Determine if one number is a permutation of another
+bool IsPermutation (const int start, const int target)
+{
+    bool permutation = false;
+    
+    // Convert the integer to a string
+    std::stringstream ss;
+    ss << start;
+    std::string startString = ss.str();
+    
+    // Check if each permutation of the string
+    // matches the given integer target
+    do
+    {
+        int number;
+        std::stringstream (startString) >> number;
+        
+        if (number == target)
+            permutation = true;
+    }
+    while ( std::next_permutation(startString.begin(), startString.end()) );
+    
+    return permutation;
+}
+
 int main (int argc, char *argv[]) 
 {
     std::vector<int> primes;
     GetPrimes (MAXIMUM_VALUE, primes);
+    
+    // Loop over the list of primes, determining if they are a 
+    // candidate for the sequence based on given constraints
+    for (int i = 0; i < primes.size(); i++)
+    {
+        // Continue if less than our minimum or already known
+        if ((primes[i] < MINIMUM_VALUE) || (primes[i] == GIVEN_VALUE))
+            continue;
+            
+        for (int j = i+1; j < primes.size(); j++)
+        {
+            int difference = primes[j] - primes[i];
+            int thirdNumber = primes[j] + difference;
+            
+            // Continue if above the maximum or not prime
+            if ((thirdNumber > MAXIMUM_VALUE) || (!IsPrime (thirdNumber)))
+                continue;
+            
+            // Determine if they are all permutations of each other
+            if (IsPermutation(primes[i], primes[j]) && IsPermutation(primes[i], thirdNumber))
+                std::cout << "The sequence is: " << primes[i] << primes[j] << thirdNumber << std::endl;
+        }
+    }
 }
