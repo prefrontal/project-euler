@@ -22,6 +22,14 @@ namespace
 	const int MAXIMUM_VALUE = 1000000;	
 }
 
+/*
+ * Sieve of Eratosthenes (integers)
+ * Simple, ancient algorithm for finding all prime numbers up to any given limit.
+ * It does so by iteratively marking as composite (i.e., not prime) the multiples
+ * of each prime, starting with the multiples of 2.
+ *
+ * Provides a vector of integers that represent the prime numbers under the maximum value
+*/
 void GetPrimes (const int maximum, std::vector<int> &primes)
 {
 	// Clear the input vector in case there is existing data
