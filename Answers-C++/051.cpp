@@ -14,14 +14,17 @@
 //
 // Answer: 121313
 
+#include <cmath>
 #include <iostream>
+#include <vector>
 
 namespace
 {
     const int MAXIMUM_VALUE = 1000000;
-    const int NUM_FIVE_DIGIT_PERMUTATIONS = 4;
-    const int NUM_SIX_DIGIT_PERMUTATIONS = 10;
+    const int TARGET_PRIME_COUNT = 8;
 }
+
+// --PRIME HELPERS----------------------------------------------------------------
 
 /*
  * Sieve of Eratosthenes (integers)
@@ -88,6 +91,38 @@ bool IsPrime (const int testValue)
     return primeState;
 }
 
+// --VECTOR HELPERS--------------------------------------------------------------
+
+// Take an integer and create a vector of the digits
+std::vector<int> IntToVector (const int input)
+{
+    std::vector<int> digits;
+    int temp = input;
+    
+    while (temp > 0)
+    {
+        digits.push_back (temp % 10);
+        temp /= 10;
+    }
+    
+    std::reverse (digits.begin(), digits.end());
+    
+    return digits;
+}
+
+// Take a vector of single integers and generate a whole integer value
+int VectorToInt (const std::vector<int>input)
+{
+    int output = 0;
+    
+    for (int i = 0; i < input.size(); i++)
+        output += input.at(i) * std::pow (10, input.size()-i-1);
+
+    return output;
+}
+
+// --MAIN METHODS--------------------------------------------------------------
+
 // This is a tough one. I admit I had to look it up to get some help.
 //
 // From: http://www.mathblog.dk/project-euler-51-eight-prime-family/
@@ -96,19 +131,30 @@ bool IsPrime (const int testValue)
 // 3) Last digit cannot be repeating
 // 4) The lowest prime will have five or six digits
 
-bool IsEightMemberPrimeFamily (const std::vector<int> input, const int index1, const int index2)
+bool IsEightMemberPrimeFamily (const std::vector<int> input, const int index1, const int index2, const int index3)
 {
-    // The input is guaranteed to be prime, but we will iterate over it anyway
     int primeCount = 0; 
-    
     std::vector<int> temp = input;
     
+    // Swap positions with new value and evaluate primeness
+    // The input is guaranteed to be prime, but we will iterate over it anyway
     for (int i = 0; i < 10; i++)
     {
+        temp[index1] = i;
+        temp[index2] = i;
+        temp[index3] = i;
         
+        // Continue if the number starts with zero
+        if (temp[0] == 0)
+            continue;
+        
+        const int newValue = VectorToInt (temp);
+
+        if (IsPrime(newValue))
+            primeCount++;
     }
     
-    return (8 == primeCount)
+    return (TARGET_PRIME_COUNT == primeCount);
 }
 
 bool EvaluateNumber (const std::vector<int> input)
@@ -116,39 +162,37 @@ bool EvaluateNumber (const std::vector<int> input)
     // Setup pattern indices
     int indices[10][3] =
     {
-        {2, 3, 4}
-        {1, 3, 4}
-        {1, 2 ,4}
-        {1, 2, 3}
-        {0, 3, 4}
-        {0, 2, 4}
-        {0, 2, 3}
-        {0, 1, 4}
-        {0, 1, 3}
+        {2, 3, 4},
+        {1, 3, 4},
+        {1, 2 ,4},
+        {1, 2, 3},
+        {0, 3, 4},
+        {0, 2, 4},
+        {0, 2, 3},
+        {0, 1, 4},
+        {0, 1, 3},
         {0, 1, 2}
-    }
+    };
     
     bool foundAnswer = false;
     
-    for (int i = 0; i < NUM_SIX_DIGIT_PERMUTATIONS; i++)
+    // Iterate over all patters, evaluating if thery are candidates
+    for (int i = 0; i < 10; i++)
     {
         // Skip some permutations if there are only five digits
-        if ((input.size > 5) && (indices[i][3] == 4)
+        if ((input.size() == 5) && (indices[i][2] == 4))
             continue;
-        
+            
         // Evaluate digit equivalency
-        if (number[i][0] != number[i][1])
+        if (input.at(indices[i][0]) != input.at(indices[i][1]))
             continue;
-        else if (number[i][0] != number[i][2])
+        else if (input.at(indices[i][0]) != input.at(indices[i][2]))
             continue;
-        else if (number[i][1] != number[i][2])
+        else if (input.at(indices[i][1]) != input.at(indices[i][2]))
             continue;
         
-        // We now know this is a prime number with three repeating digits
-        // Evaluate all two digit pairs for familial primeness
-        foundAnswer += IsEightMemberPrimeFamily (input, number[i][0], number[i][1]);
-        foundAnswer += IsEightMemberPrimeFamily (input, number[i][0], number[i][2]);
-        foundAnswer += IsEightMemberPrimeFamily (input, number[i][1], number[i][2]);
+        // Evaluate if it is an eight member prime family
+        foundAnswer += IsEightMemberPrimeFamily (input, indices[i][0], indices[i][1], indices[i][2]);
     } 
     
     return foundAnswer;
@@ -164,22 +208,13 @@ int main (int argc, char *argv[])
     for (auto it = primes.begin(); it < primes.end(); it++)
     {
         bool foundSolution = false;
+        std::vector<int> digits = IntToVector (*it);
         
-        // Load the prime number digits into the vector
-        std::vector<int> primeDigits;
-        int temp = *it;
-        
-        while (temp > 0)
-        {
-            value.push_back (temp % 10);
-            temp /= 10;
-        }
-        
-        // Evaluate if number is the solution
+        // Searche five- and six-digit numbers for a solution
         if (*it < 10000)
             continue;
         else if (*it < 1000000)
-            foundSolution = EvaluateNumber (primeDigits);  
+            foundSolution = EvaluateNumber (digits);  
             
         if (foundSolution)
         {
