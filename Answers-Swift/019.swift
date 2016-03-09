@@ -14,6 +14,8 @@
 //
 // Answer: 171
 
+import Foundation
+
 enum Weekday:Int
 {
 	case SUNDAY    = 0
@@ -27,7 +29,7 @@ enum Weekday:Int
 
 // Gussian algorithm to determine day of the week
 // From: https://en.wikipedia.org/wiki/Determination_of_the_day_of_the_week
-func CalculateDayOfWeek (year:Int, month:Int, day:Int) -> Weekday 
+func CalculateDayOfWeek (year:Int, _ month:Int, _ day:Int) -> Weekday 
 {    
 	// W = ( k + floor(2.6m - 0.2) + Y + floor(Y/4) + floor(C/4) - 2C ) mod 7
 	// k is day (1 to 31)
@@ -36,8 +38,8 @@ func CalculateDayOfWeek (year:Int, month:Int, day:Int) -> Weekday
 	// Y is year (1987 has Y = 87 except Y = 86 for Jan & Feb)
 	// W is week day (0 = Sunday, ..., 6 = Saturday)
 
-	var d:Int = day;
-	var m:Double = Double((month + 9) % 12 + 1);
+	let d:Int = day;
+	let m:Double = Double((month + 9) % 12 + 1);
 	var Y:Int;
 	
 	if (m > 10)
@@ -49,10 +51,10 @@ func CalculateDayOfWeek (year:Int, month:Int, day:Int) -> Weekday
 		Y = year;
 	}
 		
-	var y:Int = Y % 100;
-	var c:Int = (Y - (Y % 100)) / 100;
+	let y:Int = Y % 100;
+	let c:Int = (Y - (Y % 100)) / 100;
  
-	var w:Int = ( d + Int(floor(2.6*m - 0.2)) + y + Int(floor(y/4.0)) + Int(floor(c/4.0)) - (2*c) ) % 7;
+	var w:Int = ( d + Int(floor(2.6*m - 0.2)) + y + Int(floor(Double(y)/4.0)) + Int(floor(Double(c)/4.0)) - (2*c) ) % 7;
 	
 	// If modulo result was negative we need to address that
 	if (w < 0)
@@ -60,7 +62,7 @@ func CalculateDayOfWeek (year:Int, month:Int, day:Int) -> Weekday
 		w += 7;
 	}
 	
-	return Weekday(w); 
+	return Weekday.init(rawValue:w)!; 
 }
 
 
@@ -111,7 +113,7 @@ func BruteForceDayCount (yearStart:Int, _ yearEnd:Int, _ startDay:Weekday, _ tar
 			dayCount++;
 		}
 			  
-		monthStart = static_cast<Weekday>((monthStart + 31) % 7);
+		monthStart = Weekday.init(rawValue:(monthStart.rawValue + 31) % 7)!;
 		
 		// February
 		if (monthStart == targetDay)
@@ -121,11 +123,11 @@ func BruteForceDayCount (yearStart:Int, _ yearEnd:Int, _ startDay:Weekday, _ tar
 		
 		if ((0 == i%4) && (0 != i%400))
 		{
-			monthStart = static_cast<Weekday>((monthStart + 29) % 7); // Leap year
+			monthStart = Weekday.init(rawValue:(monthStart.rawValue + 29) % 7)!; // Leap year
 		}
 		else
 		{
-			monthStart = static_cast<Weekday>((monthStart + 28) % 7); // Normal year
+			monthStart = Weekday.init(rawValue:(monthStart.rawValue + 28) % 7)!; // Normal year
 		}
 		
 		// March
@@ -134,7 +136,7 @@ func BruteForceDayCount (yearStart:Int, _ yearEnd:Int, _ startDay:Weekday, _ tar
 			dayCount++;
 		}
 		
-		monthStart = static_cast<Weekday>((monthStart + 31) % 7);
+		monthStart = Weekday.init(rawValue:(monthStart.rawValue + 31) % 7)!;
 
 		// April
 		if (monthStart == targetDay)
@@ -142,7 +144,7 @@ func BruteForceDayCount (yearStart:Int, _ yearEnd:Int, _ startDay:Weekday, _ tar
 			dayCount++;
 		}
 					  
-		monthStart = static_cast<Weekday>((monthStart + 30) % 7);
+		monthStart = Weekday.init(rawValue:(monthStart.rawValue + 30) % 7)!;
 		 
 		// May
 		if (monthStart == targetDay)
@@ -150,7 +152,7 @@ func BruteForceDayCount (yearStart:Int, _ yearEnd:Int, _ startDay:Weekday, _ tar
 			dayCount++;
 		}
 					  
-		monthStart = static_cast<Weekday>((monthStart + 31) % 7);
+		monthStart = Weekday.init(rawValue:(monthStart.rawValue + 31) % 7)!;
 		
 		// June
 		if (monthStart == targetDay)
@@ -158,7 +160,7 @@ func BruteForceDayCount (yearStart:Int, _ yearEnd:Int, _ startDay:Weekday, _ tar
 			dayCount++;
 		}
 					  
-		monthStart = static_cast<Weekday>((monthStart + 30) % 7);
+		monthStart = Weekday.init(rawValue:(monthStart.rawValue + 30) % 7)!;
 			   
 		// July
 		if (monthStart == targetDay)
@@ -166,7 +168,7 @@ func BruteForceDayCount (yearStart:Int, _ yearEnd:Int, _ startDay:Weekday, _ tar
 			dayCount++;
 		}
 					  
-		monthStart = static_cast<Weekday>((monthStart + 31) % 7);
+		monthStart = Weekday.init(rawValue:(monthStart.rawValue + 31) % 7)!;
 		
 		// August
 		if (monthStart == targetDay)
@@ -174,7 +176,7 @@ func BruteForceDayCount (yearStart:Int, _ yearEnd:Int, _ startDay:Weekday, _ tar
 			dayCount++;
 		}
 		
-		monthStart = static_cast<Weekday>((monthStart + 31) % 7);  
+		monthStart = Weekday.init(rawValue:(monthStart.rawValue + 31) % 7)!;  
 			
 		// September
 		if (monthStart == targetDay)
@@ -182,7 +184,7 @@ func BruteForceDayCount (yearStart:Int, _ yearEnd:Int, _ startDay:Weekday, _ tar
 			dayCount++;
 		}
 					  
-		monthStart = static_cast<Weekday>((monthStart + 30) % 7);
+		monthStart = Weekday.init(rawValue:(monthStart.rawValue + 30) % 7)!;
 		
 		// October
 		if (monthStart == targetDay)
@@ -190,7 +192,7 @@ func BruteForceDayCount (yearStart:Int, _ yearEnd:Int, _ startDay:Weekday, _ tar
 			dayCount++;
 		}
 					  
-		monthStart = static_cast<Weekday>((monthStart + 31) % 7);
+		monthStart = Weekday.init(rawValue:(monthStart.rawValue + 31) % 7)!;
 		
 		// November
 		if (monthStart == targetDay)
@@ -198,7 +200,7 @@ func BruteForceDayCount (yearStart:Int, _ yearEnd:Int, _ startDay:Weekday, _ tar
 			dayCount++;
 		}
 					  
-		monthStart = static_cast<Weekday>((monthStart + 30) % 7);
+		monthStart = Weekday.init(rawValue:(monthStart.rawValue + 30) % 7)!;
 		
 		// December
 		if (monthStart == targetDay)
@@ -206,7 +208,7 @@ func BruteForceDayCount (yearStart:Int, _ yearEnd:Int, _ startDay:Weekday, _ tar
 			dayCount++;
 		}
 					  
-		monthStart = static_cast<Weekday>((monthStart + 31) % 7);
+		monthStart = Weekday.init(rawValue:(monthStart.rawValue + 31) % 7)!;
 	}
 	
 	return dayCount;
