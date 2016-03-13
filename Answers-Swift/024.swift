@@ -15,26 +15,53 @@
 
 import Foundation
 
-// Permutation code from: http://rosettacode.org/wiki/Permutations
-
-func permutations<T> (var ar:[T]) -> [[T]] 
+// Computes the next lexicographical permutation of the specified
+// array of numbers in place, returning whether a next permutation
+// existed. (Returns false when the argument is already the last
+// possible permutation.)
+//
+// https://www.nayuki.io/page/next-lexicographical-permutation-algorithm
+//
+func nextPermutation (inout array:[Int]) -> Bool
 {
-	return heaps (&ar, ar.count)
-}
-
-func heaps<T> (inout ar:[T], _ n: Int) -> [[T]] 
-{
-	if (n == 1)
+	// Find non-increasing suffix
+	var i = array.count - 1;
+	
+	while (i > 0 && array[i - 1] >= array[i])
 	{
-		return [ar]
+		i--;
+	}
+		
+	if (i <= 0)
+	{
+		return false;
 	}
 	
-	return ar.reduce (0..<n) {
-			(var shuffles, i) in
-			shuffles.appendContentsOf (heaps(&ar, n - 1))
-			swap (&ar[n % 2 == 0 ? i : 0], &ar[n - 1])
-			return shuffles
+	// Find successor to pivot
+	var j = array.count - 1;
+	
+	while (array[j] <= array[i - 1])
+	{
+		j--;
 	}
+	
+	var temp = array[i - 1];
+	array[i - 1] = array[j];
+	array[j] = temp;
+
+	// Reverse suffix
+	j = array.count - 1;
+	
+	while (i < j) 
+	{
+		temp = array[i];
+		array[i] = array[j];
+		array[j] = temp;
+		i++;
+		j--;
+	}
+	
+	return true;
 }
 
 let PERMUTATION_TARGET = 1000000
@@ -43,15 +70,13 @@ let PERMUTATION_TARGET = 1000000
 var digits:[Int] = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
 
 // Initial value is first permutation
-var permutationCount:Int = 0
+var permutationCount:Int = 1
 
-for permutation in permutations(digits)
+while (permutationCount < PERMUTATION_TARGET)
 {
-	permutationCount++
-	
-	if (permutationCount == PERMUTATION_TARGET)
-	{
-		print ("Permutation value is: \(permutation)")
-		break
-	}
+	nextPermutation (&digits);    
+	permutationCount++;
 }
+	
+print ("Permutation value is: ")
+print (digits)
