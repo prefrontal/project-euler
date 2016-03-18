@@ -11,19 +11,25 @@
 import Foundation
 
 // Recursively calculate factorial value of an integer
-int factorial (const int x) 
+func factorial (x:Int) -> Int
 {
 	// Check for appropriate positive value
 	if (x < 0)
-		return 0;    
+	{
+		return 0;   
+	} 
 	
 	// Special case at a value of zero and one
 	if ((x == 0) || (x == 1))
+	{
 		return 1;
+	}
 	
 	// Calculate factorial
 	if (x == 1) 
+	{
 		return x; 
+	}
 
 	return x * factorial (x - 1);
 }
@@ -32,12 +38,12 @@ let MAXIMUM_VALUE:Int = 100000;
 
 // Brute force search between 10 and a predefined maximum value
 
-int finalSum = 0;
+var finalSum:Int = 0;
 
-for (int i = 10; i < MAXIMUM_VALUE; i++)
+for (var i:Int = 10; i < MAXIMUM_VALUE; i++)
 {
-	int temp = i; 
-	int factorialSum = 0;   
+	var temp:Int = i; 
+	var factorialSum:Int = 0;   
 
 	while (temp > 0)
 	{
@@ -46,7 +52,9 @@ for (int i = 10; i < MAXIMUM_VALUE; i++)
 	}
 		
 	if (i == factorialSum)
+	{
 		finalSum += i;
+	}
 }
 
-std::cout << "The final sum is: " << finalSum << std::endl;
+print ("The final sum is: \(finalSum)")
