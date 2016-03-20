@@ -16,17 +16,16 @@ import Foundation
 func IsDecimalPalindrome (value:Int) -> Bool
 {
 	// Convert the integer to a string
-	std::stringstream ss;
-	ss << value;
-	std::string forward = ss.str();
+	let forward:String = String(value)
 	
 	// Reverse the string and compare to the original
-	std::string reverse;
-	std::reverse_copy (forward.begin(), forward.end(), std::back_inserter(reverse));
+	let reverse:String = String(forward.characters.reverse())
 	
-	if (0 == forward.compare(reverse))
+	if (forward == reverse)
+	{
 		return true;
-
+	}
+	
 	return false;
 }
 
@@ -34,40 +33,42 @@ func IsDecimalPalindrome (value:Int) -> Bool
  * Determines if a 32-bit integer is a binary palindrome through string comparison 
  */
 func IsBinaryPalindrome (input:Int) -> Bool
-{
-	std::stringstream ss;
-	
+{	
 	// Start at highest-order bit of int
-	int position = (sizeof(int) * 8) - 1;
+	var position:Int = (sizeof(Int) * 8) - 1;
 	
 	// Determine the position of the first non-zero character
 	while (position >= 0)
 	{
-		int positionValue = (input & ( 1 << position )) >> position;
+		let positionValue:Int = (input & ( 1 << position )) >> position;
 		
 		if (positionValue == 1)
+		{
 			break;
+		}
 			
 		position -= 1;
 	}
 	
-	// Now load the stringstream with the remaining digits
+	var forward:String = ""
+	
+	// Now load the string with the remaining digits
 	while (position >= 0)
 	{
-		int positionValue = (input & ( 1 << position )) >> position;
+		let positionValue:Int = (input & ( 1 << position )) >> position;
 		
-		ss << positionValue;
+		forward += String(positionValue);
 		
 		position -= 1;
 	}
-	
-	std::string forward = ss.str();
-	std::string reverse;
-	std::reverse_copy(forward.begin(), forward.end(), std::back_inserter(reverse));
-	
-	if (0 == forward.compare(reverse))
-		return true;
 
+	let reverse:String = String(forward.characters.reverse())
+	
+	if (forward == reverse)
+	{
+		return true;
+	}
+	
 	return false;
 }
 
