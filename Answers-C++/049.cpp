@@ -10,7 +10,7 @@
 // 
 // What 12-digit number do you form by concatenating the three terms in this sequence?
 // 
-// Answer:
+// Answer: 2969 6299 9629
 
 #include <algorithm>
 #include <cmath>
