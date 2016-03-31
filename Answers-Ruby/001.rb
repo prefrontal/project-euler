@@ -6,3 +6,18 @@
 #
 # Answer: 233168
 
+# Input parameters
+START_VALUE = 1;
+UPPER_LIMIT = 1000;
+
+sumTotal = 0;
+
+for i in START_VALUE...UPPER_LIMIT
+	if ((i % 3) == 0)
+		sumTotal += i;
+	elsif ((i % 5) == 0)
+		sumTotal += i;
+	end
+end
+
+puts "Sum total: #{sumTotal}"
