@@ -5,4 +5,6 @@ I have been working through the archive of Project Euler problems (https://proje
 
 Update, September 2015: Fifty questions answered in C++! They are starting to get harder though...
 
-Update, January 2016: Currently working on moving all answers to Swift
+Update, January 2016: Currently working on completing the first 50 answers in Swift
+
+Update, April 2016: Wrapped up the first 50 questions in Swift, moving on to Ruby!
