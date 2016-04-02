@@ -9,7 +9,7 @@
 
 namespace
 {
-     MAX_DIVISOR = 20;   
+     int MAX_DIVISOR = 20;   
 }
 
 /*
