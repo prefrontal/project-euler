@@ -19,9 +19,8 @@
 #
 # Answer: 76576500
 
-# Notes: this brute-force method can take a while (1256s).
-# Tried a modified sieve. Dramatic decrease in time ().
-# Last number in the addition sequence was 12375
+# Notes: this brute-force method can take a LONG time in Ruby (9h 38m)
+# A better way needs to be identified
 
 DIVISOR_TARGET = 500
 
