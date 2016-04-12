@@ -1,4 +1,4 @@
-// Project Euler Problem 21
+// Project Euler Problem 22
 //
 // Using names.txt, a 46K text file containing over five-thousand first names, 
 // begin by sorting it into alphabetical order. Then working out the alphabetical 
@@ -10,6 +10,8 @@
 // obtain a score of 938 × 53 = 49714.
 // 
 // What is the total of all the name scores in the file?
+//
+// Answer: 871198282
 
 #include <algorithm>
 #include <fstream>

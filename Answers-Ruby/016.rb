@@ -6,7 +6,6 @@
 # Answer: 1366
 
 EXPONENT = 1000;
-ASCII_OFFSET = 48;
 
 #
 # Calculate the sum of digits in any power of 2 up to 2^1023
