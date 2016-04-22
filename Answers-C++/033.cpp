@@ -12,7 +12,7 @@
 // If the product of these four fractions is given in its lowest common 
 // terms, find the value of the denominator.
 //
-// Answer: 
+// Answer: 100
 
 #include <iostream>
 
@@ -46,7 +46,7 @@ int GreatestCommonDivisor (int u, int v)
         u >>= 1;
         v >>= 1;
     }
-     
+
     while ((u & 1) == 0)
         u >>= 1;
      
