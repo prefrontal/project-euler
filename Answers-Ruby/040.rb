@@ -19,24 +19,22 @@ NUM_TARGETS = 7
 finalProduct = 1
 lastNumber = 0
 
-# Use a string to assemble the sequence
-assembly = ""
 maximumDigitCount = TARGET_INDICES[NUM_TARGETS-1];
+currentDigitCount = 0
+targetIndex = 0
 
-while (assembly.chars.count <= maximumDigitCount)
+while (currentDigitCount <= maximumDigitCount)
 	lastNumber += 1
 	
-	# When you use += ruby creates a temporal object which is result of str1 + str2. 
-	# Then it overrides str1 variable with reference to the new built object. 
-	# On other hand << modifies existing one.
-	assembly << lastNumber.to_s
-end
-
-puts << "Reached digit goal at: #{lastNumber}"
-
-# Find the product of the numbers at the target indices
-for i in 0...7
-	finalProduct *= assembly[TARGET_INDICES[i]-1].to_i
+	digits = lastNumber.to_s.split("")
+	
+	for digit in digits
+		currentDigitCount += 1
+		if (currentDigitCount == TARGET_INDICES[targetIndex])
+			targetIndex += 1
+			finalProduct *= digit.to_i
+		end
+	end
 end
 
 puts "The final product is: #{finalProduct}"
