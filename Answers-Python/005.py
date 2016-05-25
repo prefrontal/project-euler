@@ -35,9 +35,6 @@ currentValue = MAX_DIVISOR
 while (1):
 	currentValue += 1
 	
-	if (0 == currentValue % 100000):
-		print currentValue
-	
 	if (IsEvenlyDivisible(currentValue)):
 		break
 
