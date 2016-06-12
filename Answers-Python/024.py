@@ -38,7 +38,7 @@ def next_permutation (array):
 	array[j] = temp
 
 	# Reverse suffix
-	j = array.count - 1
+	j = len(array) - 1
 	
 	while (i < j):
 		temp = array[i]
