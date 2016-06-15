@@ -1,3 +1,5 @@
+#!/usr/bin/python
+
 # Project Euler Problem 37
 #
 # The number 3797 has an interesting property. Being prime itself, 
@@ -12,69 +14,60 @@
 #
 # Answer: 748317
 
+import math
+
 MAXIMUM_VALUE = 1000000
 LOWER_PRIME_LIMIT = 7
 
 #
-# Sieve of Eratosthenes (integers)
+# Sieve of Eratosthenes
 # Simple, ancient algorithm for finding all prime numbers up to any given limit.
 # It does so by iteratively marking as composite (i.e., not prime) the multiples
 # of each prime, starting with the multiples of 2.
 #
-# Provides a vector of integers that represent the prime numbers under the maximum value
-#
-def GetPrimes (maximum)
-	# Clear the input vector in case there is existing data
-	primes = []
-	
+def GetPrimes(maximum):
 	# There are no primes less than 2
-	if (maximum < 2)
+	if (maximum < 2):
 		return
-	end
 	
 	# Construct and execute the Sieve
-	sqrtMaximum = Math.sqrt(maximum).to_i
-	primeTracker = Array.new(maximum,true)
+	sqrtMaximum = math.sqrt(maximum)
+	primes = []
+	primeTracker = []
 	
-	primeTracker[1] = false
+	for i in range(maximum):
+		primeTracker.append(True)
 	
-	for i in 2...sqrtMaximum
-		if (!primeTracker[i])
-			next
-		end
+	# Block out the low values
+	primeTracker[0] = False
+	primeTracker[1] = False
+	
+	for i in range (2, int(sqrtMaximum)):
+		if (primeTracker[i] == False):
+			continue
 		
-		for j in ((i+i)...maximum).step(i)
-			if (j < 0)  # Guard against integer overflow
-				break
-			end
-			
-			primeTracker[j] = false
-		end
-	end
+		for j in range (i+i, maximum, i):
+			primeTracker[j] = False
 	
 	return primeTracker
-end
 
 # Determine if a number is a truncateable prime number
 # Pass in a vector of boolean values representing prime numbers
 # This dramatically speeds things up instead of recalculating
-def IsTruncateablePrime (value, primes)
-	if (value <= LOWER_PRIME_LIMIT)
-		return false
-	end
+def IsTruncateablePrime(value, primes):
+	if (value <= LOWER_PRIME_LIMIT):
+		return False
 	
 	# Truncate the number from right
 	# Just start chopping off digits using a modulo
 	# operation until there is nothing left
 	right = value
 	
-	while (right > 0)
-		if (!primes[right])
-			return false
-		end
+	while (right > 0):
+		if (not primes[right]):
+			return False
 		
-		right /= 10
-	end
+		right = int(right / 10)
 
 	# Truncate the number from left
 	# Instead of determining length, just start with modulo the 
@@ -82,30 +75,24 @@ def IsTruncateablePrime (value, primes)
 	left = value
 	j = MAXIMUM_VALUE
 	
-	while (j >= 10)
+	while (j >= 10):
 		left = left % j
 		
-		if (!primes[left])
-			return false
-		end
+		if (not primes[left]):
+			return False
 		
-		j /= 10
-	end
+		j = int(j / 10)
 
-	return true
-end
+	return True
 
 primes = GetPrimes(MAXIMUM_VALUE)
 finalSum = 0
 
-for i in LOWER_PRIME_LIMIT...primes.count
-	if (!primes[i])
-		next
-	end
+for i in range(LOWER_PRIME_LIMIT, len(primes)):
+	if (not primes[i]):
+		continue
 	
-	if (IsTruncateablePrime(i, primes))
+	if (IsTruncateablePrime(i, primes)):
 		finalSum += i
-	end
-end
 
-puts "The final sum is: #{finalSum}"
+print ("The final sum is: ", finalSum)
