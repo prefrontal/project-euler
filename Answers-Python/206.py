@@ -11,7 +11,6 @@
 # Current implementation takes about 90s to complete
 # Could probably be optimized further
 
-# This should juuust fit in a long long integer
 result = 0
 
 # Starting point is approximate square root
@@ -19,7 +18,6 @@ result = 0
 base = 1010101010
 
 # Keep going until we find the number or we overflow
-# the long long integer...
 while (True):
 	result = base * base
 	found = True
@@ -29,7 +27,7 @@ while (True):
 		if (result%10 != i%10):
 			found = False
 		
-		result /= 100
+		result = int(result / 100)
 	
 	if (found):
 		break
