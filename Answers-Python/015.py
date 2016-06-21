@@ -14,31 +14,33 @@
 
 TARGET_GRID_SIZE = 20
 
-def SquarePaths (gridSize):
-	# Add one since the first row and column of the square
-	# are the seed values for the actual grid of numbers
-	depth = gridSize + 1
-	
-	square = []
-	
-	# Initialize the entire array
-	for i in range (0,depth):
-		square.append([])
-		for j in range (0,depth):
-			square[i].append(0)
-	
-	# Insert first seed row and column
-	for k in range (0,depth):
-		square[k][0] = 1
-		square[0][k] = 1
-	
-	# Now, calculate the rest of the square
-	for m in range (1, depth):
-		for n in range (1, depth):
-			square[m][n] = square[m-1][n] + square[m][n-1]
-	
-	return square[depth-1][depth-1];
 
-answer = SquarePaths (TARGET_GRID_SIZE)
+def square_paths(grid_size):
+    # Add one since the first row and column of the square
+    # are the seed values for the actual grid of numbers
+    depth = grid_size + 1
+
+    square = []
+
+    # Initialize the entire array
+    for i in range(0, depth):
+        square.append([])
+        for j in range(0, depth):
+            square[i].append(0)
+
+    # Insert first seed row and column
+    for k in range(0, depth):
+        square[k][0] = 1
+        square[0][k] = 1
+
+    # Now, calculate the rest of the square
+    for m in range(1, depth):
+        for n in range(1, depth):
+            square[m][n] = square[m - 1][n] + square[m][n - 1]
+
+    return square[depth - 1][depth - 1]
+
+
+answer = square_paths(TARGET_GRID_SIZE)
 
 print "The number of routes is: %d" % answer

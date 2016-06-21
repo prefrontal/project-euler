@@ -23,25 +23,25 @@ UPPER_LIMIT = 1000000
 
 # Identify the longest Collatz chain from a range of numbers starting
 # at one and going up to a specified upper limit
-maxTermCount = 0
-maxTermLocation = 0
+max_term_count = 0
+max_term_location = 0
 
-for i in range(1, UPPER_LIMIT+1):
-	# Must use a 64-bit integer here, as we will overflow a 32-bit
-	# integer once we hit a starting value of 113,383
-	temp = i
-	count = 0
-	
-	while (temp != 1):
-		if (0 == (temp % 2)):
-			temp = temp / 2
-		else:
-			temp = 3 * temp + 1
-		
-		count += 1
-	
-	if (count > maxTermCount):
-		maxTermLocation = i
-		maxTermCount = count                
+for i in range(1, UPPER_LIMIT + 1):
+    # Must use a 64-bit integer here, as we will overflow a 32-bit
+    # integer once we hit a starting value of 113,383
+    temp = i
+    count = 0
 
-print "The maximum term count was %d at location %d" % (maxTermCount,maxTermLocation)
+    while temp != 1:
+        if 0 == (temp % 2):
+            temp /= 2
+        else:
+            temp = 3 * temp + 1
+
+        count += 1
+
+    if count > max_term_count:
+        max_term_location = i
+        max_term_count = count
+
+print "The maximum term count was %d at location %d" % (max_term_count, max_term_location)

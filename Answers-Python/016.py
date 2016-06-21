@@ -18,11 +18,11 @@ ASCII_OFFSET = 48
 # http://www.exploringbinary.com/what-powers-of-two-look-like-inside-a-computer/
 # http://www.exploringbinary.com/a-simple-c-program-that-prints-2098-powers-of-two/
 
-number = math.pow(2,EXPONENT)
-numberString = "%d" % number
+number = math.pow(2, EXPONENT)
+number_string = "%d" % number
 sum = 0
 
-for i in range (0,len(numberString)):
-	sum += int(numberString[i])
+for i in range(0, len(number_string)):
+    sum += int(number_string[i])
 
 print "The sum of digits is: %d" % sum

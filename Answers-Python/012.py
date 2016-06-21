@@ -26,28 +26,28 @@
 
 DIVISOR_TARGET = 500
 
-currentNumber = 0
-currentSum = 0
+current_number = 0
+current_sum = 0
 
 iteration = 0
 
-while (True):
-	# Identify current triangle number
-	currentNumber += 1 
-	currentSum += currentNumber
-	
-	factorCount = 0
-	
-	for i in range (1, currentSum+1):
-		 if (0 == (currentSum % i)):
-			factorCount += 1
-	
-	if (factorCount > DIVISOR_TARGET):
-		break
-		
-	iteration += 1
-		
-	if (0 == (iteration % 1000)):
-		print "%d - %d" % (currentSum, factorCount)    
+while True:
+    # Identify current triangle number
+    current_number += 1
+    current_sum += current_number
 
-print "The triangle number is: %d %d" % (currentSum, currentNumber)
+    factor_count = 0
+
+    for i in range(1, current_sum + 1):
+        if 0 == (current_sum % i):
+            factor_count += 1
+
+    if factor_count > DIVISOR_TARGET:
+        break
+
+    iteration += 1
+
+    if 0 == (iteration % 1000):
+        print "%d - %d" % (current_sum, factor_count)
+
+print "The triangle number is: %d %d" % (current_sum, current_number)

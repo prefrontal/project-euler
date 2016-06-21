@@ -39,47 +39,39 @@
 
 TRIANGLE_SIZE = 15
 
-# Could have or should have put this into a separate function, but
-# didn't want to mess around with malloc and passing pointers.
-# Doing it without C++11 makes using vectors onerous as well.
 newTriangle = [
-[ 75,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0 ], # row 0
-[ 95, 64,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0 ], # row 1
-[ 17, 47, 82,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0 ], # row 2
-[ 18, 35, 87, 10,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0 ], # row 3
-[ 20,  4, 82, 47, 65,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0 ], # row 4
-[ 19,  1, 23, 75,  3, 34,  0,  0,  0,  0,  0,  0,  0,  0,  0 ], # row 5
-[ 88,  2, 77, 73,  7, 63, 67,  0,  0,  0,  0,  0,  0,  0,  0 ], # row 6
-[ 99, 65,  4, 28,  6, 16, 70, 92,  0,  0,  0,  0,  0,  0,  0 ], # row 7
-[ 41, 41, 26, 56, 83, 40, 80, 70, 33,  0,  0,  0,  0,  0,  0 ], # row 8
-[ 41, 48, 72, 33, 47, 32, 37, 16, 94, 29,  0,  0,  0,  0,  0 ], # row 9
-[ 53, 71, 44, 65, 25, 43, 91, 52, 97, 51, 14,  0,  0,  0,  0 ], # row 10
-[ 70, 11, 33, 28, 77, 73, 17, 78, 39, 68, 17, 57,  0,  0,  0 ], # row 11
-[ 91, 71, 52, 38, 17, 14, 91, 43, 58, 50, 27, 29, 48,  0,  0 ], # row 12
-[ 63, 66,  4, 68, 89, 53, 67, 30, 73, 16, 69, 87, 40, 31,  0 ], # row 13
-[  4, 62, 98, 27, 23,  9, 70, 98, 73, 93, 38, 53, 60,  4, 23 ], # row 14
+    [75, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],  # row 0
+    [95, 64, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],  # row 1
+    [17, 47, 82, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],  # row 2
+    [18, 35, 87, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],  # row 3
+    [20, 4, 82, 47, 65, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],  # row 4
+    [19, 1, 23, 75, 3, 34, 0, 0, 0, 0, 0, 0, 0, 0, 0],  # row 5
+    [88, 2, 77, 73, 7, 63, 67, 0, 0, 0, 0, 0, 0, 0, 0],  # row 6
+    [99, 65, 4, 28, 6, 16, 70, 92, 0, 0, 0, 0, 0, 0, 0],  # row 7
+    [41, 41, 26, 56, 83, 40, 80, 70, 33, 0, 0, 0, 0, 0, 0],  # row 8
+    [41, 48, 72, 33, 47, 32, 37, 16, 94, 29, 0, 0, 0, 0, 0],  # row 9
+    [53, 71, 44, 65, 25, 43, 91, 52, 97, 51, 14, 0, 0, 0, 0],  # row 10
+    [70, 11, 33, 28, 77, 73, 17, 78, 39, 68, 17, 57, 0, 0, 0],  # row 11
+    [91, 71, 52, 38, 17, 14, 91, 43, 58, 50, 27, 29, 48, 0, 0],  # row 12
+    [63, 66, 4, 68, 89, 53, 67, 30, 73, 16, 69, 87, 40, 31, 0],  # row 13
+    [4, 62, 98, 27, 23, 9, 70, 98, 73, 93, 38, 53, 60, 4, 23],  # row 14
 ]
 
-resultTriangle = []
-maxRows = TRIANGLE_SIZE-1
+result_triangle = []
+max_rows = TRIANGLE_SIZE - 1
 
-for i in range (0,TRIANGLE_SIZE):
-	resultTriangle.append([])
-	for j in range (0,TRIANGLE_SIZE):
-		resultTriangle[i].append(0)
+for i in range(0, TRIANGLE_SIZE):
+    result_triangle.append([])
+    for j in range(0, TRIANGLE_SIZE):
+        result_triangle[i].append(0)
 
 # Work from the bottom up, calculating the partial sums of each row
 # That is, the value of the current element and the max of the elements below
-for i in range (maxRows, -1, -1):
-	for j in range (0, i+1):
-		if (i == maxRows):
-			resultTriangle[i][j] = newTriangle[i][j]
-		else:
-			resultTriangle[i][j] = newTriangle[i][j] + max(resultTriangle[i+1][j], resultTriangle[i+1][j+1]);
+for i in range(max_rows, -1, -1):
+    for j in range(0, i + 1):
+        if i == max_rows:
+            result_triangle[i][j] = newTriangle[i][j]
+        else:
+            result_triangle[i][j] = newTriangle[i][j] + max(result_triangle[i + 1][j], result_triangle[i + 1][j + 1])
 
-print "The final sum is: %d" % resultTriangle[0][0]
-
-
-
-
-
+print "The final sum is: %d" % result_triangle[0][0]
