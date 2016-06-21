@@ -29,7 +29,7 @@
 # 71636269561882670428252483600823257530420752963450
 
 # The number of consecutive digits to examine
-numDigits = 13
+num_digits = 13
 
 number1 = "7316717653133062491922511967442657474235534919493496983520312774506326239578318016984801869478851843"
 number2 = "8586156078911294949545950173795833195285320880551112540698747158523863050715693290963295227443043557"
@@ -42,22 +42,22 @@ number8 = "178664583591245665294765456828489128831426076900422421902267105562632
 number9 = "0719840385096245544436298123098787992724428490918884580156166097919133875499200524063689912560717606"
 number10 = "0588611646710940507754100225698315520005593572972571636269561882670428252483600823257530420752963450"
 
-numberString = number1 + number2 + number3 + number4 + number5 + number6 + number7 + number8 + number9 + number10
-stringLength = len(numberString)
+number_string = number1 + number2 + number3 + number4 + number5 + number6 + number7 + number8 + number9 + number10
+string_length = len(number_string)
 
 # Determine the number of 'windows' of consecutive digits we need to examine
-windowCount = stringLength - numDigits
+window_count = string_length - num_digits
 
-maxProduct = 0
+max_product = 0
 
-for i in range (0,windowCount+1):
-	tempProduct = 1 # Start at one since we will be multiplying
-	
-	for j in range (i, (i+numDigits)):
-		value = int(numberString[j])
-		tempProduct *= value;
+for i in range(0, window_count + 1):
+    temp_product = 1  # Start at one since we will be multiplying
 
-	if (maxProduct < tempProduct):
-		maxProduct = tempProduct
+    for j in range(i, (i + num_digits)):
+        value = int(number_string[j])
+        temp_product *= value
 
-print "Max product for length %d is %d" % (numDigits, maxProduct)
+    if max_product < temp_product:
+        max_product = temp_product
+
+print "Max product for length %d is %d" % (num_digits, max_product)

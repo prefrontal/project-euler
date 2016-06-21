@@ -10,31 +10,33 @@ import math
 
 TARGET_NUMBER = 600851475143
 
-def IsPrime (input):
-	if (input < 2):
-		return False
-	
-	primeState = True
-	
-	for i in range (2, input):
-		if ((input % i) == 0):
-			primeState = False
-			break
 
-	return primeState
+def is_prime(test_value):
+    if test_value < 2:
+        return False
 
-def DetermineLargestPrimeFactor (inputValue):
-	largestFactor = 0
-	sqrtInput = math.sqrt(inputValue)
+    prime_state = True
 
-	for i in range (3, int(sqrtInput), 2):
-		if ((inputValue % i) == 0):
-			if (IsPrime(i)):
-				 if (i > largestFactor):
-					largestFactor = i 
-	
-	return largestFactor;
+    for i in range(2, test_value):
+        if (test_value % i) == 0:
+            prime_state = False
+            break
 
-factor = DetermineLargestPrimeFactor(TARGET_NUMBER)
+    return prime_state
+
+
+def determine_largest_prime_factor(inputValue):
+    largest_factor = 0
+    sqrt_input = math.sqrt(inputValue)
+
+    for i in range(3, int(sqrt_input), 2):
+        if (inputValue % i) == 0:
+            if is_prime(i):
+                if i > largest_factor:
+                    largest_factor = i
+
+    return largest_factor
+
+
+factor = determine_largest_prime_factor(TARGET_NUMBER)
 print "Largest prime factor: %d" % factor
-

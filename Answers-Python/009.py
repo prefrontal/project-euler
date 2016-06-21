@@ -12,20 +12,20 @@
 
 TARGET_SUM = 1000;
 
-pySum = 0
+py_sum = 0
 a = 0
 b = 0
 c = 0
 
-for i in range (TARGET_SUM, 0, -1):
-	for j in range ((TARGET_SUM-i), 0, -1):
-		for k in range ((TARGET_SUM-i-j), 0, -1):
-			if ((i+j+k) != TARGET_SUM):
-				continue
-			
-			if ((i*i + j*j) != k*k):
-				continue
-				
-			pySum = i*j*k
+for i in range(TARGET_SUM, 0, -1):
+    for j in range((TARGET_SUM - i), 0, -1):
+        for k in range((TARGET_SUM - i - j), 0, -1):
+            if (i + j + k) != TARGET_SUM:
+                continue
 
-print "The product is: %d" % pySum
+            if (i * i + j * j) != k * k:
+                continue
+
+            py_sum = i * j * k
+
+print "The product is: %d" % py_sum

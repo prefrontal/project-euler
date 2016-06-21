@@ -20,15 +20,15 @@ MAX_EVALUATION_NUMBER = 100
 # square-of-sums for a range of numbers
 #
 
-tempSum = 0
-tempSumSquares = 0
+temp_sum = 0
+temp_sum_squares = 0
 
-for i in range (MAX_EVALUATION_NUMBER+1):
-    tempSum += i
-    tempSumSquares += i*i
+for i in range(MAX_EVALUATION_NUMBER + 1):
+    temp_sum += i
+    temp_sum_squares += i * i
 
-sumOfSquares = tempSumSquares
-squareOfSums = tempSum * tempSum
-difference = abs(sumOfSquares - squareOfSums)
+sum_of_squares = temp_sum_squares
+square_of_sums = temp_sum * temp_sum
+difference = abs(sum_of_squares - square_of_sums)
 
 print "The difference is: %d" % difference

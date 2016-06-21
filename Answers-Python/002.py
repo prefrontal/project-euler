@@ -8,25 +8,25 @@
 #
 # Answer: 4613732
 
-upperLimit = 4000000
+upper_limit = 4000000
 
-oneBack = 2
-twoBack = 1
+one_back = 2
+two_back = 1
 
 # Starts at 2 since initial oneBack term is even
-finalSum = 2 
+final_sum = 2
 
-while (oneBack + twoBack < upperLimit):
+while one_back + two_back < upper_limit:
     
-    # Determine the next Fibbonacci term
-    currentTerm = oneBack + twoBack
+    # Determine the next Fibonacci term
+    current_term = one_back + two_back
     
     # Check for even number and add
-    if (currentTerm % 2 == 0):
-        finalSum += currentTerm
+    if current_term % 2 == 0:
+        final_sum += current_term
 
-    # Update Fibbonacci terms
-    twoBack = oneBack
-    oneBack = currentTerm
+    # Update Fibonacci terms
+    two_back = one_back
+    one_back = current_term
 
-print "The final sum is: %s" % finalSum
+print "The final sum is: %s" % final_sum

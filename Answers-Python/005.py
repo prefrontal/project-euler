@@ -10,32 +10,32 @@
 
 MAX_DIVISOR = 20
 
-#
+
 # Checks to see if a number is evenly divisible by all numbers between
 # zero and a specified maximum divisor.
-#
-def IsEvenlyDivisible (value):
-	if (value < MAX_DIVISOR):
-		return False
-	
-	evenlyDivisible = True
-	
-	for i in range (MAX_DIVISOR, 0, -1):
-		if (0 != (value % i)):
-			evenlyDivisible = False
-			break
-		
-	return evenlyDivisible
 
-#
+def is_evenly_divisible(value):
+    if value < MAX_DIVISOR:
+        return False
+
+    evenly_divisible = True
+
+    for i in range(MAX_DIVISOR, 0, -1):
+        if 0 != (value % i):
+            evenly_divisible = False
+            break
+
+    return evenly_divisible
+
+
 # Finds the smallest number that is evenly divisible
-#
-currentValue = MAX_DIVISOR
 
-while (1):
-	currentValue += 1
-	
-	if (IsEvenlyDivisible(currentValue)):
-		break
+current_value = MAX_DIVISOR
 
-print "Smallest positive evenly divisible number: %d" % currentValue
+while True:
+    current_value += 1
+
+    if is_evenly_divisible(current_value):
+        break
+
+print "Smallest positive evenly divisible number: %d" % current_value

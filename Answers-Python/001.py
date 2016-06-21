@@ -8,13 +8,13 @@
 #
 # Answer: 233168
 
-lowerLimit = 0
-upperLimit = 1000
+lower_limit = 0
+upper_limit = 1000
 
-finalSum = 0
+final_sum = 0
 
-for i in range (lowerLimit, upperLimit):
-    if ((i % 3 == 0) or (i % 5 == 0)):
-        finalSum += i
+for i in range (lower_limit, upper_limit):
+    if (i % 3 == 0) or (i % 5 == 0):
+        final_sum += i
         
-print "The final sum is: %s" % finalSum
+print "The final sum is: %s" % final_sum

@@ -8,7 +8,8 @@
 
 import math
 
-TARGET_NUMBER = 2000000;
+TARGET_NUMBER = 2000000
+
 
 #
 # Sieve of Eratosthenes
@@ -16,40 +17,41 @@ TARGET_NUMBER = 2000000;
 # It does so by iteratively marking as composite (i.e., not prime) the multiples
 # of each prime, starting with the multiples of 2.
 #
-def GetPrimes (maximum):
-	# There are no primes less than 2
-	if (maximum < 2):
-		return
-	
-	# Construct and execute the Sieve
-	sqrtMaximum = math.sqrt(maximum)
-	primes = []
-	primeTracker = []
-	
-	for i in range(maximum):
-		primeTracker.append(True)
-	
-	for i in range (2, int(sqrtMaximum)):
-		if (primeTracker[i] == False):
-			continue
-		
-		for j in range (i+i, maximum, i):
-			primeTracker[j] = False
-	
-	# Generate the list of primes to return
-	for k in range (2, maximum):
-		if (primeTracker[k] == True):
-			primes.append(k)
-			
-	return primes
+def get_primes(maximum):
+    # There are no primes less than 2
+    if maximum < 2:
+        return
+
+    # Construct and execute the Sieve
+    sqrt_maximum = math.sqrt(maximum)
+    primes = []
+    prime_tracker = []
+
+    for i in range(maximum):
+        prime_tracker.append(True)
+
+    for i in range(2, int(sqrt_maximum)):
+        if not prime_tracker[i]:
+            continue
+
+        for j in range(i + i, maximum, i):
+            prime_tracker[j] = False
+
+    # Generate the list of primes to return
+    for k in range(2, maximum):
+        if prime_tracker[k]:
+            primes.append(k)
+
+    return primes
+
 
 #
 # Find the sume of all primes up to a given number
 #
-myPrimes = GetPrimes(TARGET_NUMBER)
-primeSum = 0
+my_primes = get_primes(TARGET_NUMBER)
+prime_sum = 0
 
-for it in myPrimes:
-	primeSum += it
-	
-print "The sum is: %d" % primeSum
+for it in my_primes:
+    prime_sum += it
+
+print "The sum is: %d" % prime_sum
