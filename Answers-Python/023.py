@@ -20,56 +20,51 @@
 # written as the sum of two abundant numbers.
 #
 # Answer: 4179871
-	
+
 MAX_INTEGER = 28123
 
+
 # Brute-force determination of numeric abundance
-def IsAbundant (value):
-	divisors = []
-	
-	for i in range(1,value):
-		if (0 == value % i):
-			divisors.append(i)
-	
-	divisorSum = 0
-	
-	for it in divisors:
-		divisorSum += it
+def is_abundant(value):
+    divisors = []
 
-	if (value < divisorSum):
-		return True
-	else:
-		return False
-		
+    for i in range(1, value):
+        if 0 == value % i:
+            divisors.append(i)
 
-abundantNumbers = []
-numberList = [False for x in range(MAX_INTEGER+1)]
+    divisor_sum = 0
+
+    for it in divisors:
+        divisor_sum += it
+
+    if value < divisor_sum:
+        return True
+    else:
+        return False
+
+
+abundant_numbers = []
+number_list = [False for x in range(MAX_INTEGER + 1)]
 
 # First, generate a list of abundant numbers
 for i in range(12, MAX_INTEGER):
-	if (IsAbundant (i)):
-		abundantNumbers.append(i)
+    if is_abundant(i):
+        abundant_numbers.append(i)
 
 # Next, add each abundant number to every other possible
 # abundant number in the vector.
-for m in range(len(abundantNumbers)):
-	for n in range(len(abundantNumbers)):
-		position = abundantNumbers[m] + abundantNumbers[n]
-		if (position <= MAX_INTEGER):
-			numberList[position] = True
+for m in range(len(abundant_numbers)):
+    for n in range(len(abundant_numbers)):
+        position = abundant_numbers[m] + abundant_numbers[n]
+        if position <= MAX_INTEGER:
+            number_list[position] = True
 
 # Go through the list of numbers that cannot be expressed as
 # two abundant numbers and generate the final sum.
-finalSum = 0
+final_sum = 0
 
-for i,v in enumerate(numberList):
-	if (not v):
-		finalSum += i
+for i, v in enumerate(number_list):
+    if not v:
+        final_sum += i
 
-print ("The final sum is: ", finalSum)
-
-
-
-
-
-
+print ("The final sum is: ", final_sum)

@@ -24,45 +24,45 @@ square = [[0] * SQUARE_SIZE for i in range(SQUARE_SIZE)]
 
 # Generate the values for the square
 x = 0
-y = SQUARE_SIZE-1
+y = SQUARE_SIZE - 1
 
 value = SQUARE_SIZE * SQUARE_SIZE
 
 square[x][y] = value
 
-while (value > 1):
-	# Top Row
-	while ((y-1 >= 0) and (square[x][y-1] == 0)):
-		y -= 1
-		value -= 1
-		square[x][y] = value
-	
-	# Left Column
-	while ((x+1 < SQUARE_SIZE) and (square[x+1][y] == 0)):
-		x += 1
-		value -= 1
-		square[x][y] = value
-	
-	# Bottom Row
-	while ((y+1 < SQUARE_SIZE) and (square[x][y+1] == 0)):
-		y += 1
-		value -= 1
-		square[x][y] = value
-	
-	# Right Column
-	while ((x-1 >= 0) and (square[x-1][y] == 0)):
-		x -= 1
-		value -= 1
-		square[x][y] = value
+while value > 1:
+    # Top Row
+    while (y - 1 >= 0) and (square[x][y - 1] == 0):
+        y -= 1
+        value -= 1
+        square[x][y] = value
+
+    # Left Column
+    while (x + 1 < SQUARE_SIZE) and (square[x + 1][y] == 0):
+        x += 1
+        value -= 1
+        square[x][y] = value
+
+    # Bottom Row
+    while (y + 1 < SQUARE_SIZE) and (square[x][y + 1] == 0):
+        y += 1
+        value -= 1
+        square[x][y] = value
+
+    # Right Column
+    while (x - 1 >= 0) and (square[x - 1][y] == 0):
+        x -= 1
+        value -= 1
+        square[x][y] = value
 
 # Create a sum of the diagonal values
-diagonalSum = 0
+diagonal_sum = 0
 
 for i in range(SQUARE_SIZE):
-	diagonalSum += square[i][i] # First diagonal
-	diagonalSum += square[SQUARE_SIZE-i-1][i] # Second diagonal            
+    diagonal_sum += square[i][i]  # First diagonal
+    diagonal_sum += square[SQUARE_SIZE - i - 1][i]  # Second diagonal
 
 # Correct for the center value getting counted twice
-diagonalSum -= 1
-	
-print ("The final diagonal sum is: ", diagonalSum)
+diagonal_sum -= 1
+
+print ("The final diagonal sum is: ", diagonal_sum)

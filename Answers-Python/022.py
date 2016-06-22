@@ -18,37 +18,34 @@
 ASCII_LETTER_OFFSET = 64
 ASCII_QUOTE_VALUE = 34
 
+
 # The file provided is a single line of text consisting of names
 # in quotes separated by commas.  This function will put one name
 # in quotes in each element of the output vector
-def LoadFile ():
-	file = open('../Data Files/022-Names.txt','r')
-	text = file.read()
-	return (text.split(','))
+def load_file():
+    names_file = open('../Data Files/022-Names.txt', 'r')
+    text = names_file.read()
+    return text.split(',')
+
 
 # Get names and sort them
-names = LoadFile()
+names = load_file()
 names.sort()
 
-finalSum = 0
+final_sum = 0
 
 # Iterate over the names, calculating the contribution
 # of each name, multiplied by its position in the list
-for i,name in enumerate(names):
-	tempSum = 0
-	
-	for letter in name:
-		if ('"' == letter):
-			continue;
-				
-		tempSum += ord(letter) - ASCII_LETTER_OFFSET;	
-	
-	# Increment by one because element 0 is the first entry
-	finalSum += (i+1) * tempSum;
+for i, name in enumerate(names):
+    temp_sum = 0
 
-print ("The final sum is: ", finalSum)
+    for letter in name:
+        if '"' == letter:
+            continue
 
+        temp_sum += ord(letter) - ASCII_LETTER_OFFSET
 
+    # Increment by one because element 0 is the first entry
+    final_sum += (i + 1) * temp_sum
 
-
-
+print ("The final sum is: ", final_sum)

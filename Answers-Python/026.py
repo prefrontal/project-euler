@@ -27,78 +27,79 @@ import math
 
 MAXIMUM_VALUE = 1000
 
-#
+
 # Sieve of Eratosthenes
 # Simple, ancient algorithm for finding all prime numbers up to any given limit.
 # It does so by iteratively marking as composite (i.e., not prime) the multiples
 # of each prime, starting with the multiples of 2.
-#
-def GetPrimes (maximum):
-	# There are no primes less than 2
-	if (maximum < 2):
-		return
-	
-	# Construct and execute the Sieve
-	sqrtMaximum = math.sqrt(maximum)
-	primes = []
-	primeTracker = []
-	
-	for i in range(maximum):
-		primeTracker.append(True)
-	
-	for i in range (2, int(sqrtMaximum)):
-		if (primeTracker[i] == False):
-			continue
-		
-		for j in range (i+i, maximum, i):
-			primeTracker[j] = False
-	
-	# Generate the list of primes to return
-	for k in range (2, maximum):
-		if (primeTracker[k] == True):
-			primes.append(k)
-			
-	return primes
+def get_primes(maximum):
+    # There are no primes less than 2
+    if maximum < 2:
+        return
+
+    # Construct and execute the Sieve
+    sqrt_maximum = math.sqrt(maximum)
+    primes = []
+    prime_tracker = []
+
+    for i in range(maximum):
+        prime_tracker.append(True)
+
+    for i in range(2, int(sqrt_maximum)):
+        if not prime_tracker[i]:
+            continue
+
+        for j in range(i + i, maximum, i):
+            prime_tracker[j] = False
+
+    # Generate the list of primes to return
+    for k in range(2, maximum):
+        if prime_tracker[k]:
+            primes.append(k)
+
+    return primes
+
 
 # Calculate pow(a,b) mod n
 # For this problem std::pow(a,b)%n will overflow
 # This template function calculates iteratively, avoiding the overflow
 # From: http:#stackoverflow.com/questions/8496182/calculating-powa-b-mod-n
-def modpow (base, exp, modulus):
-	base %= modulus
-	result = 1
-	
-	while (exp > 0):
-		if (exp & 1):
-			result = (result * base) % modulus
-		base = (base * base) % modulus
-		exp >>= 1
-	
-	return result
+def modpow(base, exp, modulus):
+    base %= modulus
+    result = 1
+
+    while exp > 0:
+        if exp & 1:
+            result = (result * base) % modulus
+        base = (base * base) % modulus
+        exp >>= 1
+
+    return result
+
 
 # Determine the cycle length of the fraction
 # By solving the discrete logarithm
-def DetermineCycleLength (value):
-	for i in range(1,value+1):
-		a = modpow (10, i, value)
-		
-		if (a == 1):
-			return i
-	
-	return 0
+def determine_cycle_length(value):
+    for i in range(1, value + 1):
+        a = modpow(10, i, value)
+
+        if a == 1:
+            return i
+
+    return 0
+
 
 # We only need to look at prime values
-primes = GetPrimes (MAXIMUM_VALUE)
+primes = get_primes(MAXIMUM_VALUE)
 
-longestCycle = 0
-longestDenominator = 0
+longest_cycle = 0
+longest_denominator = 0
 
 for it in primes:
-	cycleLength = DetermineCycleLength (it);
+    cycleLength = determine_cycle_length(it)
 
-	if (cycleLength > longestCycle):
-		longestCycle = cycleLength
-		longestDenominator = it
+    if cycleLength > longest_cycle:
+        longest_cycle = cycleLength
+        longest_denominator = it
 
-print ("The denominator with the longest cycle is: ", longestDenominator, " with length: ", longestCycle)
-	
+print ("The denominator with the longest cycle is: ", longest_denominator, " with length: ", longest_cycle)

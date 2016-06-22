@@ -4,7 +4,7 @@
 #
 # The Fibonacci sequence is defined by the recurrence relation:
 #
-# Fn = Fn−1 + Fn−2, where F1 = 1 and F2 = 1.
+# Fn = Fn-1 + Fn-2, where F1 = 1 and F2 = 1.
 # Hence the first 12 terms will be:
 # 
 # F1 = 1
@@ -33,12 +33,12 @@ DIGIT_TARGET = 1000
 # We will be looking for exactly the DIGIT_TARGET, so
 # and array of that size will suffice in this case
 a = [0 for x in range(DIGIT_TARGET)]
-b = [0 for x in range(DIGIT_TARGET)]
-c = [0 for x in range(DIGIT_TARGET)]
+b = [0 for y in range(DIGIT_TARGET)]
+c = [0 for z in range(DIGIT_TARGET)]
 
 # We will start by calculating the third Fibonacci term
-termCount = 2
-digitCount = 1
+term_count = 2
+digit_count = 1
 b[0] = 1
 c[0] = 1
 
@@ -48,33 +48,33 @@ c[0] = 1
 # digit in the actual number
 
 while True:
-	# Start by adding the previous two terms
-	remainder = 0
+    # Start by adding the previous two terms
+    remainder = 0
 
-	for i in range(DIGIT_TARGET):
-		temp = b[i] + c[i] + remainder
-		a[i] = temp % 10
-		remainder = int(temp / 10)
-	
-	# Update the last two values
-	for j in range(DIGIT_TARGET):
-		# Could have done this in the loop above, but
-		# separating out responibility makes sense
-		c[j] = b[j]
-		b[j] = a[j]   
-	
-	# Count the number of digits
-	for k in range(DIGIT_TARGET-1, -1, -1):
-		# Identify the first non-zero value in the array
-		# as we move from highest to lowest value.
-		
-		if (0 != a[k]):
-			digitCount = k+1
-			break
-	
-	termCount += 1
-	
-	if (digitCount == DIGIT_TARGET):
-		break
+    for i in range(DIGIT_TARGET):
+        temp = b[i] + c[i] + remainder
+        a[i] = temp % 10
+        remainder = int(temp / 10)
 
-print ("The term with ", DIGIT_TARGET, " digits is: ", termCount)
+    # Update the last two values
+    for j in range(DIGIT_TARGET):
+        # Could have done this in the loop above, but
+        # separating out responsibility makes sense
+        c[j] = b[j]
+        b[j] = a[j]
+
+    # Count the number of digits
+    for k in range(DIGIT_TARGET - 1, -1, -1):
+        # Identify the first non-zero value in the array
+        # as we move from highest to lowest value.
+
+        if 0 != a[k]:
+            digit_count = k + 1
+            break
+
+    term_count += 1
+
+    if digit_count == DIGIT_TARGET:
+        break
+
+print ("The term with ", DIGIT_TARGET, " digits is: ", term_count)

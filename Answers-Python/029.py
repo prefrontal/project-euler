@@ -26,9 +26,9 @@ MAXIMUM_VALUE = 100
 sequences = set()
 
 # Generate sequence set
-for a in range(2, MAXIMUM_VALUE+1):
-	for b in range(2,MAXIMUM_VALUE+1):
-		sequences.add (pow(a,b));
+for a in range(2, MAXIMUM_VALUE + 1):
+    for b in range(2, MAXIMUM_VALUE + 1):
+        sequences.add(pow(a, b));
 
 # Report sequence count
 print ("The number of unique sequences is: %s" % len(sequences))
