@@ -16,40 +16,41 @@
 
 TARGET_INDICES = [1, 10, 100, 1000, 10000, 100000, 1000000]
 
-# Take an integer and create a vector of the digits
-def IntToVector (input):
-	digits = []
 
-	while (input > 0):
-		digits.append(input % 10)
-		input = int(input / 10)
-	
-	digits = digits[::-1]
-	
-	return digits
+# Take an integer and create a vector of the digits
+def int_to_vector(input_int):
+    digits = []
+
+    while input_int > 0:
+        digits.append(input_int % 10)
+        input_int = int(input_int / 10)
+
+    digits = digits[::-1]
+
+    return digits
+
 
 # We will be multiplying later, so a value of one here
-finalProduct = 1
-lastNumber = 0
+final_product = 1
+last_number = 0
 
-maximumDigitCount = TARGET_INDICES[-1]
-currentDigitCount = 0
-targetIndex = 0
+maximum_digit_count = TARGET_INDICES[-1]
+current_digit_count = 0
+target_index = 0
 
-while (currentDigitCount <= maximumDigitCount):
-	lastNumber += 1
-	digits = IntToVector(lastNumber)
-	
-	for it in digits:
-		currentDigitCount += 1
+while current_digit_count <= maximum_digit_count:
+    last_number += 1
+    digits = int_to_vector(last_number)
 
-		if (targetIndex == len(TARGET_INDICES)):
-			break;
+    for it in digits:
+        current_digit_count += 1
 
-		if (currentDigitCount == TARGET_INDICES[targetIndex]):
-			targetIndex += 1
-			finalProduct *= it
+        if target_index == len(TARGET_INDICES):
+            break
 
-print ("Reached digit goal at: %s" % lastNumber)
-print ("The final product is: %s" % finalProduct)
-	
+        if current_digit_count == TARGET_INDICES[target_index]:
+            target_index += 1
+            final_product *= it
+
+print ("Reached digit goal at: %s" % last_number)
+print ("The final product is: %s" % final_product)

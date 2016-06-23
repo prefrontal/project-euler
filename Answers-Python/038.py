@@ -23,50 +23,53 @@
 MAXIMUM_VALUE = 100000
 PANDIGITAL_VALUE_COUNT = 9
 
+
 # Determine if a string contains a pandigital number
-def IsPandigital (input):
-	input = ''.join(sorted(input))
-	
-	if (input == "123456789"):
-		return True
-	else:
-		return False
+def is_pandigital(input):
+    input = ''.join(sorted(input))
+
+    if input == "123456789":
+        return True
+    else:
+        return False
+
 
 # Return the number of characters in an integer
-def GetIntegerLength (input):
-	length = 0
-	temp = input
-	
-	while (temp > 0):
-		temp /= 10
-		length += 1
-		
-	return length
+def get_integer_length(input):
+    length = 0
+    temp = input
+
+    while temp > 0:
+        temp /= 10
+        length += 1
+
+    return length
+
 
 # Determine the largest concatenated pandigital from integer multiplication
-largestPandigital = 0
+largest_pandigital = 0
 
 for i in range(1, MAXIMUM_VALUE):
-	ss = ""
-	
-	multiplier = 0
-	valueCount = 0
-	
-	# Keep multiplying the base integer until we have
-	# more digits than a standard pandigital number.
-	# The use of stringstreams makes things easier here.
-	while (valueCount < PANDIGITAL_VALUE_COUNT):
-		# Concatenate the next number
-		multiplier += 1
-		ss += str(i*multiplier)
-		valueCount = len(ss)
-		
-		# Test the number for pandigitality
-		if IsPandigital(ss):
+    ss = ""
 
-			pandigitalValue = int(ss)
-			
-			if (pandigitalValue > largestPandigital):
-				largestPandigital = pandigitalValue
+    multiplier = 0
+    value_count = 0
 
-print ("The largest pandigital is: ", largestPandigital)
+    # Keep multiplying the base integer until we have
+    # more digits than a standard pandigital number.
+    # The use of stringstreams makes things easier here.
+    while value_count < PANDIGITAL_VALUE_COUNT:
+        # Concatenate the next number
+        multiplier += 1
+        ss += str(i * multiplier)
+        value_count = len(ss)
+
+        # Test the number for pandigitality
+        if is_pandigital(ss):
+
+            pandigital_value = int(ss)
+
+            if pandigital_value > largest_pandigital:
+                largest_pandigital = pandigital_value
+
+print ("The largest pandigital is: ", largest_pandigital)

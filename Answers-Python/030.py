@@ -21,19 +21,19 @@ MAXIMUM_SEARCH_VALUE = 999999
 MINIMUM_SEARCH_VALUE = 2
 EXPONENT = 5
 
-overallSum = 0
+overall_sum = 0
 
 # Go through all possible number in the range and evaluate if the
 # power of their digits is equal to the original number provided
-for i in range(MINIMUM_SEARCH_VALUE, MAXIMUM_SEARCH_VALUE+1):
-	tempSum = 0
-	number = i
+for i in range(MINIMUM_SEARCH_VALUE, MAXIMUM_SEARCH_VALUE + 1):
+    temp_sum = 0
+    number = i
 
-	while (number > 0):
-		tempSum += pow (number%10, EXPONENT) 
-		number /= 10
-	
-	if (tempSum == i):
-		overallSum += i
+    while number > 0:
+        temp_sum += pow(number % 10, EXPONENT)
+        number /= 10
 
-print ("The overall sum is: %s" % overallSum)
+    if temp_sum == i:
+        overall_sum += i
+
+print ("The overall sum is: %s" % overall_sum)

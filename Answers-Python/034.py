@@ -15,17 +15,17 @@ import math
 MAXIMUM_VALUE = 100000
 
 # Brute force search between 10 and a predefined maximum value
-finalSum = 0
+final_sum = 0
 
 for i in range(10, MAXIMUM_VALUE):
-	temp = i
-	factorialSum = 0
+    temp = i
+    factorial_sum = 0
 
-	while (temp > 0):
-		factorialSum += math.factorial(temp % 10)
-		temp = int(temp / 10)
-		
-	if (i == factorialSum):
-		finalSum += i
+    while temp > 0:
+        factorial_sum += math.factorial(temp % 10)
+        temp = int(temp / 10)
 
-print ("The final sum is: ", finalSum)
+    if i == factorial_sum:
+        final_sum += i
+
+print ("The final sum is: ", final_sum)

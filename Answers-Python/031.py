@@ -17,22 +17,22 @@
 
 TARGET_VALUE = 200
 
-finalCount = 0
+final_count = 0
 
 # Seven nested for loops isn't pretty, but it gets the job done
-for a in range(0,200+1):
-	for b in range(0,100+1):
-		for c in range(0,40+1):
-			for d in range(0,20+1):
-				for e in range(0,10+1):
-					for f in range(0,4+1):
-						for g in range(0,2+1):
-							temp = a + 2*b + 5*c + 10*d + 20*e + 50*f + 100*g
-							
-							if (temp == TARGET_VALUE):
-								finalCount += 1
+for a in range(0, 200 + 1):
+    for b in range(0, 100 + 1):
+        for c in range(0, 40 + 1):
+            for d in range(0, 20 + 1):
+                for e in range(0, 10 + 1):
+                    for f in range(0, 4 + 1):
+                        for g in range(0, 2 + 1):
+                            temp = a + 2 * b + 5 * c + 10 * d + 20 * e + 50 * f + 100 * g
+
+                            if temp == TARGET_VALUE:
+                                final_count += 1
 
 # Add one for the 2P coin. Done to keep it out of the nested loops.
-finalCount += 1
+final_count += 1
 
-print ("The number of ways to make 2P is: %s" % finalCount)
+print ("The number of ways to make 2P is: %s" % final_count)
