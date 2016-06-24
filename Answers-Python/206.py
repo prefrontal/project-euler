@@ -11,27 +11,25 @@
 # Current implementation takes about 90s to complete
 # Could probably be optimized further
 
-result = 0
-
 # Starting point is approximate square root
 # of first possible number (1020304050607080900)
 base = 1010101010
 
 # Keep going until we find the number or we overflow
-while (True):
-	result = base * base
-	found = True
-	
-	# Check every other digit in the number
-	for i in range(10, 0, -1):
-		if (result%10 != i%10):
-			found = False
-		
-		result = int(result / 100)
-	
-	if (found):
-		break
-	
-	base += 1
+while True:
+    result = base * base
+    found = True
 
-print ("The number is: ", base)	
+    # Check every other digit in the number
+    for i in range(10, 0, -1):
+        if result % 10 != i % 10:
+            found = False
+
+        result = int(result / 100)
+
+    if found:
+        break
+
+    base += 1
+
+print ("The number is: ", base)

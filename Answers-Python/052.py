@@ -12,36 +12,39 @@
 
 MAXIMUM_VALUE = 1000000
 
-def GetDigitVector (input):
-	digits = []
-	
-	while (input > 0):
-		digits.append (input % 10); 
-		input = int(input / 10)
 
-	return digits
+def get_digit_vector(input):
+    digits = []
 
-def HasSameDigits (input):
-	primary = GetDigitVector (input);
-	primary.sort()
-	
-	for i in range(2, 6+1):
-		secondary = GetDigitVector (i*input)
-		secondary.sort()
-		
-		if (len(primary) != len(secondary)):
-			return False
-		
-		if (primary != secondary):
-			return False
+    while input > 0:
+        digits.append(input % 10)
+        input = int(input / 10)
 
-	return True;
-	
-finalAnswer = 0
+    return digits
+
+
+def has_same_digits(input):
+    primary = get_digit_vector(input)
+    primary.sort()
+
+    for i in range(2, 6 + 1):
+        secondary = get_digit_vector(i * input)
+        secondary.sort()
+
+        if len(primary) != len(secondary):
+            return False
+
+        if primary != secondary:
+            return False
+
+    return True
+
+
+final_answer = 0
 
 for i in range(1, MAXIMUM_VALUE):
-	if (HasSameDigits(i)):
-		finalAnswer = i
-		break
+    if has_same_digits(i):
+        final_answer = i
+        break
 
-print ("The target number is: ", finalAnswer)
+print ("The target number is: ", final_answer)

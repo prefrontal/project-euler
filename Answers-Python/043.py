@@ -22,70 +22,72 @@
 # Answer: 
 # 16695334890
 
-def next_permutation (array):
-	# Find non-increasing suffix
-	i = len(array) - 1
-	
-	while (i > 0 and array[i - 1] >= array[i]):
-		i -= 1
-		
-	if (i <= 0):
-		return []
-	
-	# Find successor to pivot
-	j = len(array) - 1
-	
-	while (array[j] <= array[i-1]):
-		j -= 1
-	
-	temp = array[i - 1]
-	array[i - 1] = array[j]
-	array[j] = temp
 
-	# Reverse suffix
-	j = len(array) - 1
-	
-	while (i < j):
-		temp = array[i]
-		array[i] = array[j]
-		array[j] = temp
-		i += 1
-		j -= 1
-	
-	return array
-	
-	
-def IsTargetPandigital(number):
-	divisors = [2, 3, 5, 7, 11, 13, 17]
-	
-	for i in range(0,6+1):
-		# We start counting at 0 in the loop,
-		# but the problem indices begin at one
-		value = list_to_int(number[i+1:i+4])
-		
-		# Check the next divisor in the array
-		if ((value % divisors[i]) != 0):
-			return False;
+def next_permutation(array):
+    # Find non-increasing suffix
+    i = len(array) - 1
 
-	return True;
+    while i > 0 and array[i - 1] >= array[i]:
+        i -= 1
+
+    if i <= 0:
+        return []
+
+    # Find successor to pivot
+    j = len(array) - 1
+
+    while array[j] <= array[i - 1]:
+        j -= 1
+
+    temp = array[i - 1]
+    array[i - 1] = array[j]
+    array[j] = temp
+
+    # Reverse suffix
+    j = len(array) - 1
+
+    while i < j:
+        temp = array[i]
+        array[i] = array[j]
+        array[j] = temp
+        i += 1
+        j -= 1
+
+    return array
 
 
-def list_to_int(aList):
-	s = ''.join(map(str, aList))
-	return int(s)
+def is_target_pandigital(number):
+    divisors = [2, 3, 5, 7, 11, 13, 17]
 
-pandigitalSum = 0
+    for i in range(0, 6 + 1):
+        # We start counting at 0 in the loop,
+        # but the problem indices begin at one
+        value = list_to_int(number[i + 1:i + 4])
+
+        # Check the next divisor in the array
+        if (value % divisors[i]) != 0:
+            return False
+
+    return True
+
+
+def list_to_int(input_list):
+    s = ''.join(map(str, input_list))
+    return int(s)
+
+
+pandigital_sum = 0
 number = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
 
 # We will permute the characters in the number string,
 # checking if each permutation is a pandigital target
-while (True):
-	if (IsTargetPandigital(number)):
-		pandigitalSum += list_to_int(number)
+while True:
+    if is_target_pandigital(number):
+        pandigital_sum += list_to_int(number)
 
-	number = next_permutation(number)
+    number = next_permutation(number)
 
-	if (0 == len(number)):
-		break
+    if 0 == len(number):
+        break
 
-print ("The sum of pandigital numbers is: ", pandigitalSum)
+print ("The sum of pandigital numbers is: ", pandigital_sum)

@@ -24,98 +24,95 @@ TARGET_FACTOR_COUNT = 4
 TARGET_RUN_LENGTH = 4
 MAXIMUM_VALUE = 150000
 
-#
+
 # Sieve of Eratosthenes
 # Simple, ancient algorithm for finding all prime numbers up to any given limit.
 # It does so by iteratively marking as composite (i.e., not prime) the multiples
 # of each prime, starting with the multiples of 2.
-#
-def GetPrimes (maximum):
-	# There are no primes less than 2
-	if (maximum < 2):
-		return
-	
-	# Construct and execute the Sieve
-	sqrtMaximum = math.sqrt(maximum)
-	primes = []
-	primeTracker = []
-	
-	for i in range(maximum):
-		primeTracker.append(True)
-	
-	for i in range (2, int(sqrtMaximum)):
-		if (primeTracker[i] == False):
-			continue
-		
-		for j in range (i+i, maximum, i):
-			primeTracker[j] = False
-	
-	# Generate the list of primes to return
-	for k in range (2, maximum):
-		if (primeTracker[k] == True):
-			primes.append(k)
-			
-	return primes
+def get_primes(maximum):
+    # There are no primes less than 2
+    if maximum < 2:
+        return
+
+    # Construct and execute the Sieve
+    sqrt_maximum = math.sqrt(maximum)
+    primes = []
+    prime_tracker = []
+
+    for i in range(maximum):
+        prime_tracker.append(True)
+
+    for i in range(2, int(sqrt_maximum)):
+        if not prime_tracker[i]:
+            continue
+
+        for j in range(i + i, maximum, i):
+            prime_tracker[j] = False
+
+    # Generate the list of primes to return
+    for k in range(2, maximum):
+        if prime_tracker[k]:
+            primes.append(k)
+
+    return primes
 
 
-#
 # Get a list of the prime factors of a given integer
 # This function expects to have a valid list of primes passed in
-#
-def GetPrimeFactors (number, primes):
-	factorCount = 0
-	lastFactor = 0
-	remainder = number
-	
-	# Keep looping until we reach the end of our dividing
-	while (remainder != 1 ):
-		# Determine the lowest prime that we can use to divide the remainder
-		for i in range(0, len(primes)):
-			if (remainder <= 1): # Sanity check
-				break
-			
-			# Found a prime factor
-			if (0 == remainder % primes[i]):
-				# If the current factor is the same as
-				# the last one then don't count it
-				if (primes[i] != lastFactor):
-					factorCount += 1
-					lastFactor = primes[i]
+def get_prime_factors(number, primes):
+    factor_count = 0
+    last_factor = 0
+    remainder = number
 
-				remainder /= primes[i]
-				break
+    # Keep looping until we reach the end of our dividing
+    while remainder != 1:
+        # Determine the lowest prime that we can use to divide the remainder
+        for i in range(0, len(primes)):
+            if remainder <= 1:  # Sanity check
+                break
 
-	return factorCount
+            # Found a prime factor
+            if 0 == remainder % primes[i]:
+                # If the current factor is the same as
+                # the last one then don't count it
+                if primes[i] != last_factor:
+                    factor_count += 1
+                    last_factor = primes[i]
+
+                remainder /= primes[i]
+                break
+
+    return factor_count
 
 
 # We are using brute force for the prime factor search
 # This takes about sixteen seconds on my machine
 # There are clearly some ways that we could speed this up
 
-primes = GetPrimes (MAXIMUM_VALUE)
+primes = get_primes(MAXIMUM_VALUE)
 
-leadValue = 0
-consecutivePrimeCount = 0
+lead_value = 0
+consecutive_prime_count = 0
 
 # Examine all integers up to the maximum value
 # Start at one so we don't try to factor zero
 for i in range(1, MAXIMUM_VALUE):
-	factorCount = GetPrimeFactors(i, primes)
-	
-	# Reset the counter if we didn't get the right number of factors
-	if (factorCount != TARGET_FACTOR_COUNT):
-		consecutivePrimeCount = 0
-		continue
-	
-	# If this is the first in a new potential sequence 
-	# then keep track of the lead integer value
-	if (consecutivePrimeCount == 0):
-		leadValue = i
-	
-	consecutivePrimeCount += 1
-	
-	# Determine if we have found the target run
-	if (consecutivePrimeCount == TARGET_RUN_LENGTH):
-		break
+    factor_count = get_prime_factors(i, primes)
 
-print ("The target integer is: ", leadValue)
+    # Reset the counter if we didn't get the right number of factors
+    if factor_count != TARGET_FACTOR_COUNT:
+        consecutive_prime_count = 0
+        continue
+
+    # If this is the first in a new potential sequence
+    # then keep track of the lead integer value
+    if consecutive_prime_count == 0:
+        lead_value = i
+
+    consecutive_prime_count += 1
+
+    # Determine if we have found the target run
+    if consecutive_prime_count == TARGET_RUN_LENGTH:
+        break
+
+print ("The target integer is: ", lead_value)

@@ -21,6 +21,7 @@ import math
 MAXIMUM_VALUE = 1000000
 TARGET_PRIME_COUNT = 8
 
+
 # --PRIME HELPERS----------------------------------------------------------------
 
 #
@@ -29,32 +30,32 @@ TARGET_PRIME_COUNT = 8
 # It does so by iteratively marking as composite (i.e., not prime) the multiples
 # of each prime, starting with the multiples of 2.
 #
-def GetPrimes (maximum):
-	# There are no primes less than 2
-	if (maximum < 2):
-		return
-	
-	# Construct and execute the Sieve
-	sqrtMaximum = math.sqrt(maximum)
-	primes = []
-	primeTracker = []
-	
-	for i in range(maximum):
-		primeTracker.append(True)
-	
-	for i in range (2, int(sqrtMaximum)):
-		if (primeTracker[i] == False):
-			continue
-		
-		for j in range (i+i, maximum, i):
-			primeTracker[j] = False
-	
-	# Generate the list of primes to return
-	for k in range (2, maximum):
-		if (primeTracker[k] == True):
-			primes.append(k)
-			
-	return primes
+def get_primes(maximum):
+    # There are no primes less than 2
+    if maximum < 2:
+        return
+
+    # Construct and execute the Sieve
+    sqrt_maximum = math.sqrt(maximum)
+    primes = []
+    prime_tracker = []
+
+    for i in range(maximum):
+        prime_tracker.append(True)
+
+    for i in range(2, int(sqrt_maximum)):
+        if not prime_tracker[i]:
+            continue
+
+        for j in range(i + i, maximum, i):
+            prime_tracker[j] = False
+
+    # Generate the list of primes to return
+    for k in range(2, maximum):
+        if prime_tracker[k]:
+            primes.append(k)
+
+    return primes
 
 
 #
@@ -62,30 +63,31 @@ def GetPrimes (maximum):
 # Used to validate the Sieve results.  Could also be
 # used when the Sieve would use too much memory.
 #
-def IsPrime (input):
-	if (input < 2):
-		return False
-	
-	primeState = True
-	
-	for i in range (2, input):
-		if ((input % i) == 0):
-			primeState = False
-			break
+def is_prime(input):
+    if input < 2:
+        return False
 
-	return primeState
-	
+    prime_state = True
+
+    for i in range(2, input):
+        if (input % i) == 0:
+            prime_state = False
+            break
+
+    return prime_state
+
 
 # --VECTOR HELPERS--------------------------------------------------------------
 
 # Take an integer and create a vector of the digits
-def IntToVector (input):
-	return list(map(int, str(input)))
+def int_to_vector(input):
+    return list(map(int, str(input)))
+
 
 # Take a vector of single integers and generate a whole integer value
-def VectorToInt (input):
-	s = ''.join(map(str, input))
-	return int(s)
+def vector_to_int(input):
+    s = ''.join(map(str, input))
+    return int(s)
 
 
 # --MAIN METHODS--------------------------------------------------------------
@@ -98,79 +100,81 @@ def VectorToInt (input):
 # 3) Last digit cannot be repeating
 # 4) The lowest prime will have five or six digits
 
-def IsEightMemberPrimeFamily (input, index1, index2, index3):
-	primeCount = 0 
-	temp = input;
-	
-	# Swap positions with new value and evaluate primeness
-	# The input is guaranteed to be prime, but we will iterate over it anyway
-	for i in range(0, 10):
-		temp[index1] = i
-		temp[index2] = i
-		temp[index3] = i
-		
-		# Continue if the number starts with zero
-		if (temp[0] == 0):
-			continue
-		
-		newValue = VectorToInt (temp)
+def is_eight_member_prime_family(input, index1, index2, index3):
+    prime_count = 0
+    temp = input
 
-		if (IsPrime(newValue)):
-			primeCount += 1
-	
-	return (TARGET_PRIME_COUNT == primeCount)
+    # Swap positions with new value and evaluate primeness
+    # The input is guaranteed to be prime, but we will iterate over it anyway
+    for i in range(0, 10):
+        temp[index1] = i
+        temp[index2] = i
+        temp[index3] = i
 
-def EvaluateNumber (input):
-	# Setup pattern indices
-	indices = [
-		[2, 3, 4],
-		[1, 3, 4],
-		[1, 2 ,4],
-		[1, 2, 3],
-		[0, 3, 4],
-		[0, 2, 4],
-		[0, 2, 3],
-		[0, 1, 4],
-		[0, 1, 3],
-		[0, 1, 2]]
-	
-	foundAnswer = False
-	
-	# Iterate over all patters, evaluating if thery are candidates
-	for i in range(0, 10):
-		# Skip some permutations if there are only five digits
-		if ((len(input) == 5) and (indices[i][2] == 4)):
-			continue
-			
-		# Evaluate digit equivalency
-		if input[indices[i][0]] != input[indices[i][1]]:
-			continue
-		elif input[indices[i][0]] != input[indices[i][2]]:
-			continue
-		elif input[indices[i][1]] != input[indices[i][2]]:
-			continue
-		
-		# Evaluate if it is an eight member prime family
-		foundAnswer += IsEightMemberPrimeFamily (input, indices[i][0], indices[i][1], indices[i][2])
+        # Continue if the number starts with zero
+        if temp[0] == 0:
+            continue
 
-	return foundAnswer
+        new_value = vector_to_int(temp)
 
-primes = GetPrimes (MAXIMUM_VALUE)
+        if is_prime(new_value):
+            prime_count += 1
 
-finalAnswer = 0
+    return TARGET_PRIME_COUNT == prime_count
+
+
+def evaluate_number(input):
+    # Setup pattern indices
+    indices = [
+        [2, 3, 4],
+        [1, 3, 4],
+        [1, 2, 4],
+        [1, 2, 3],
+        [0, 3, 4],
+        [0, 2, 4],
+        [0, 2, 3],
+        [0, 1, 4],
+        [0, 1, 3],
+        [0, 1, 2]]
+
+    found_answer = False
+
+    # Iterate over all patters, evaluating if thery are candidates
+    for i in range(0, 10):
+        # Skip some permutations if there are only five digits
+        if (len(input) == 5) and (indices[i][2] == 4):
+            continue
+
+        # Evaluate digit equivalency
+        if input[indices[i][0]] != input[indices[i][1]]:
+            continue
+        elif input[indices[i][0]] != input[indices[i][2]]:
+            continue
+        elif input[indices[i][1]] != input[indices[i][2]]:
+            continue
+
+        # Evaluate if it is an eight member prime family
+        found_answer += is_eight_member_prime_family(input, indices[i][0], indices[i][1], indices[i][2])
+
+    return found_answer
+
+
+primes = get_primes(MAXIMUM_VALUE)
+
+final_answer = 0
 
 for it in primes:
-	foundSolution = False
-	digits = IntToVector (it)
-	
-	# Searche five- and six-digit numbers for a solution
-	if (it < 10000):
-		continue
-	elif (it < 1000000):
-		foundSolution = EvaluateNumber (digits) 
-		
-	if (foundSolution):
-		finalAnswer = it;
-		break
+    found_solution = False
+    digits = int_to_vector(it)
 
-print ("The lowest prime in an eight member family is: ", finalAnswer)
+    # Searche five- and six-digit numbers for a solution
+    if it < 10000:
+        continue
+    elif it < 1000000:
+        found_solution = evaluate_number(digits)
+
+    if found_solution:
+        final_answer = it
+        break
+
+print ("The lowest prime in an eight member family is: ", final_answer)

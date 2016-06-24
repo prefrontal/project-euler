@@ -28,11 +28,11 @@ UPPER_RESULT_LIMIT = 1000000
 # if it is greater than an upper limit, we can hold the huge number 
 # in a double knowing that it will work for the final comparison.
 
-finalCount = 0
- 
-for n in range(1, UPPER_NCR_LIMIT+1):
-	for r in range(0, n+1):
-		if (math.factorial(n) / (math.factorial(r) * math.factorial(n-r)) >= UPPER_RESULT_LIMIT):
-			   finalCount += 1
+final_count = 0
 
-print ("The final count is: ", finalCount)
+for n in range(1, UPPER_NCR_LIMIT + 1):
+    for r in range(0, n + 1):
+        if math.factorial(n) / (math.factorial(r) * math.factorial(n - r)) >= UPPER_RESULT_LIMIT:
+            final_count += 1
+
+print ("The final count is: ", final_count)
