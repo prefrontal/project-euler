@@ -19,10 +19,11 @@
 # If this process is continued, what is the side length of the square spiral for which the ratio of
 # primes along both diagonals first falls below 10%?
 #
-# Answer:
+# Answer: 26241
+# This is totally brute force, takes 12 seconds on a Macbook...
 
 # Upper limit must always be odd here
-UPPER_LIMIT = 100001
+UPPER_LIMIT = 1000001
 TARGET_RATIO = 0.10
 
 
@@ -32,12 +33,6 @@ def is_prime(test_value):
 
     prime_state = True
 
-    # First pass to get rid of obvious candidates
-    for i in [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97, 101]:
-        if test_value > i and test_value % i == 0:
-            return False
-
-    # Brute force time
     for j in range(2, int(test_value**0.5)):
         if (test_value % j) == 0:
             prime_state = False
@@ -55,14 +50,14 @@ for i in range(3, UPPER_LIMIT, 2):
     # Bottom right diagonal number for this iteration
     # Since it is a square, it is never prime
     base_number = i**2
+    total_count += 1
 
+    # Now calculate the other three corners
     for j in range(1, 4):
         corner_value = base_number - j * i + j
         total_count += 1
         if is_prime(corner_value):
             prime_count += 1
-
-        print(prime_count / total_count)
 
     if (prime_count / total_count) < TARGET_RATIO:
         print("Fell below target ratio with side length: ", i)
