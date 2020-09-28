@@ -37,9 +37,9 @@ while (true) {
     
     $factorCount = 0;
     
-    for ($i = 1; $i <= $currentSum; $i++) {
+    for ($i = 1; $i <= sqrt($currentSum); $i++) {
         if (0 == ($currentSum % $i)) {
-            $factorCount++;
+            $factorCount += 2;
         }
     }
     
