@@ -27,14 +27,16 @@
 #
 # Answer: 28684
 
-
 import itertools
+from typing import List
+
 
 # Returns two digits starting at position n
 def get_digits(number, n):
-    return number // 10**(n-1) % 100
+	return number // 10**(n-1) % 100
 
-# Pass in the function and calc all four digit numbers
+
+# Pass in the function and calc all four-digit numbers
 def calc_polygonal_numbers(poly_function):
 	output = []
 	n = 1
@@ -50,8 +52,9 @@ def calc_polygonal_numbers(poly_function):
 			
 	return output
 
+
 # Generate all the poly numbers and store in a 2-d list
-numbers = []
+numbers: List[List[int]] = list()
 numbers.append(calc_polygonal_numbers(lambda n: n * (n + 1) / 2))
 numbers.append(calc_polygonal_numbers(lambda n: n * n))
 numbers.append(calc_polygonal_numbers(lambda n: n * (3 * n - 1) / 2))
@@ -65,28 +68,33 @@ arrangements = list(itertools.permutations([0, 1, 2, 3, 4, 5]))
 # For every two digits that end one number, ensure they match the two digits that start the next number
 # If not, start with the next numbers
 for arr in arrangements:
+	# Get the first two numbers and compare digits
 	for num0 in numbers[arr[0]]:
 		for num1 in numbers[arr[1]]:
-			if get_digits(num0,1) != get_digits(num1,3):
+			if get_digits(num0, 1) != get_digits(num1, 3):
 				continue
-		
+
+			# Compare number three to number two
 			for num2 in numbers[arr[2]]:
-				if get_digits(num1,1) != get_digits(num2,3):
+				if get_digits(num1, 1) != get_digits(num2, 3):
 					continue		
 
+				# Compare number four to number three
 				for num3 in numbers[arr[3]]:
-					if get_digits(num2,1) != get_digits(num3,3):
+					if get_digits(num2, 1) != get_digits(num3, 3):
 						continue	
-				
+
+					# Compare number five to number three
 					for num4 in numbers[arr[4]]:
-						if get_digits(num3,1) != get_digits(num4,3):
+						if get_digits(num3, 1) != get_digits(num4, 3):
 							continue					
-					
+
+						# Compare number six to number five
 						for num5 in numbers[arr[5]]:
-							if get_digits(num4,1) != get_digits(num5,3):
+							if get_digits(num4, 1) != get_digits(num5, 3):
 								continue
 								
 							# Make sure that the last number wraps around to the first!
-							if get_digits(num5,1) == get_digits(num0,3):
+							if get_digits(num5, 1) == get_digits(num0, 3):
 								print(num0, num1, num2, num3, num4, num5)
 								print("Sum: ", num0 + num1 + num2 + num3 + num4 + num5)
